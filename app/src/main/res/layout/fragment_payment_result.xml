@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/imgMoney"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_money" />
+
+        <TextView
+            android:id="@+id/txtResultMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Payment Accepted"
+            android:layout_below="@+id/imgMoney"
+            android:textSize="26sp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnGoToMenu"
+            android:text="Back to Shop"
+            android:layout_below="@+id/txtResultMessage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
+
+
+
+
+
+
+</RelativeLayout>
