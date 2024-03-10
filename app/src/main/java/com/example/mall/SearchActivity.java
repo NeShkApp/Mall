@@ -19,12 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mall.AllCategoriesDialog;
-import com.example.mall.GroceryItem;
-import com.example.mall.GroceryItemAdapter;
-import com.example.mall.MainActivity;
-import com.example.mall.R;
-import com.example.mall.Utils;
+import com.example.mall.databasefiles.GroceryItem;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

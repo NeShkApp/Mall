@@ -7,6 +7,8 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
+import com.example.mall.databasefiles.GroceryItem;
+
 public class TrackUserTime extends Service {
 
     private int seconds = 0;

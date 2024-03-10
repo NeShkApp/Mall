@@ -1,13 +1,22 @@
-package com.example.mall;
+package com.example.mall.databasefiles;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+import com.example.mall.Review;
 
 import java.util.ArrayList;
 
+@Entity(tableName = "grocery_items")
 public class GroceryItem implements Parcelable {
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
     private String description;
@@ -18,10 +27,24 @@ public class GroceryItem implements Parcelable {
     private int rate;
     private int userPoint;
     private int popularityPoint;
+    @TypeConverters(ReviewsConverter.class)
     private ArrayList<Review> reviews;
 
+    public GroceryItem(String name, String description, String imageUrl, String category, double price, int availableAmount, int rate, int userPoint, int popularityPoint, ArrayList<Review> reviews) {
+        this.name = name;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.category = category;
+        this.price = price;
+        this.availableAmount = availableAmount;
+        this.rate = rate;
+        this.userPoint = userPoint;
+        this.popularityPoint = popularityPoint;
+        this.reviews = reviews;
+    }
+
+    @Ignore
     public GroceryItem(String name, String description, String imageUrl, String category, double price, int availableAmount) {
-        this.id = Utils.getID();
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
@@ -34,6 +57,7 @@ public class GroceryItem implements Parcelable {
         this.reviews = new ArrayList<>();
     }
 
+    @Ignore
     protected GroceryItem(Parcel in) {
         id = in.readInt();
         name = in.readString();
@@ -47,6 +71,7 @@ public class GroceryItem implements Parcelable {
         popularityPoint = in.readInt();
     }
 
+    @Ignore
     public static final Creator<GroceryItem> CREATOR = new Creator<GroceryItem>() {
         @Override
         public GroceryItem createFromParcel(Parcel in) {
@@ -59,6 +84,7 @@ public class GroceryItem implements Parcelable {
         }
     };
 
+    @Ignore
     @Override
     public String toString() {
         return "GroceryItem{" +
@@ -164,11 +190,13 @@ public class GroceryItem implements Parcelable {
         return reviews;
     }
 
+    @Ignore
     @Override
     public int describeContents() {
         return 0;
     }
 
+    @Ignore
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeInt(id);
