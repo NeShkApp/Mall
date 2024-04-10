@@ -21,6 +21,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -36,6 +39,7 @@ public class ThirdCardFragment extends Fragment {
     private RadioGroup rgPayment;
     private Button btnBack, btnNext;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,12 +52,13 @@ public class ThirdCardFragment extends Fragment {
             if(null!=jsonOrder){
                 Gson gson = new Gson();
                 Type type = new TypeToken<Order>(){}.getType();
-                final Order order = gson.fromJson(jsonOrder, type);
+                Order order = gson.fromJson(jsonOrder, type);
                 if(null!=order){
                     String items = "";
                     for(GroceryItem i: order.getItems()){
-                        items += "\n" + i.getName();
+                        items += i.getName() + "\n";
                     }
+
                     txtItems.setText(items);
                     txtPhone.setText(order.getPhoneNumber());
                     txtTotalPrice.setText(order.getTotalPrice()+" $");
@@ -85,7 +90,6 @@ public class ThirdCardFragment extends Fragment {
                                 default:
                                     order.setPaymentMethod("Unknown");
                                     break;
-
                             }
                             order.setSuccess(true);
 
@@ -108,8 +112,14 @@ public class ThirdCardFragment extends Fragment {
                             call.enqueue(new Callback<Order>() {
                                 @Override
                                 public void onResponse(Call<Order> call, Response<Order> response) {
-                                    Log.d(TAG, "onResponse: code: " + response.code());
+//                                    Log.d(TAG, "onResponse: code: " + response.code());
                                     if(response.isSuccessful()) {
+                                        //new
+                                        order.setTime(Utils.getCurrentTime());
+                                        order.setDate(Utils.getCurrentSymbolicDate());
+                                        Utils.addOrder(getActivity(), order);
+                                        //new above
+
                                         Bundle bundle = new Bundle();
                                         bundle.putString(ORDER_KEY, gson.toJson(response.body()));
                                         PaymentResultFragment paymentResultFragment = new PaymentResultFragment();

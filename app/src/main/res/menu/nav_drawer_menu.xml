@@ -26,4 +26,19 @@
         android:id="@+id/licences"
         android:icon="@drawable/ic_action_licences"/>
 
+    <item
+        android:title="Settings"
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings"/>
+
+    <item
+        android:title="My Orders"
+        android:id="@+id/orders"
+        android:icon="@drawable/ic_orders"/>
+
+    <item
+        android:title="Map"
+        android:id="@+id/map"
+        android:icon="@drawable/ic_map"/>
+
 </menu>

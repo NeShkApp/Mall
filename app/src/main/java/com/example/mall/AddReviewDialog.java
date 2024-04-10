@@ -2,6 +2,8 @@ package com.example.mall;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,27 +30,33 @@ public class AddReviewDialog extends DialogFragment {
     private TextView txtItemName, txtWarning;
     private EditText edtUsername, edtUserReview;
     private Button btnAddReview;
+    private SharedPreferences preferences;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_add_review, null);
         initViews(view);
+        preferences = getActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                 .setView(view);
+
+//        fillEditTextsFromPreferences();
 
         Bundle bundle = getArguments();
         if (null != bundle) {
             final GroceryItem item = bundle.getParcelable(GROCERY_ITEM_KEY);
             if (null != item) {
                 txtItemName.setText(item.getName());
+                edtUsername.setText(preferences.getString("user_name", ""));
                 btnAddReview.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String userName = edtUsername.getText().toString();
                         String userReview = edtUserReview.getText().toString();
-                        String date = getCurrentDate();
+                        String date = Utils.getCurrentNumericDate();
                         if (userName.equals("") || userReview.equals("")) {
                             txtWarning.setVisibility(View.VISIBLE);
                             txtWarning.setText("Fill all the blanks");
@@ -70,17 +78,15 @@ public class AddReviewDialog extends DialogFragment {
         return builder.create();
     }
 
-    private String getCurrentDate() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-YYYY");
-        return sdf.format(calendar.getTime());
-    }
-
     private void initViews(View view) {
         txtItemName = view.findViewById(R.id.txtItemName);
         txtWarning = view.findViewById(R.id.txtWarning);
         edtUsername = view.findViewById(R.id.edtYourName);
         edtUserReview = view.findViewById(R.id.edtYourReview);
         btnAddReview = view.findViewById(R.id.btnAddRev);
+    }
+
+    private void fillEditTextsFromPreferences() {
+        edtUsername.setText(preferences.getString("user_name", ""));
     }
 }

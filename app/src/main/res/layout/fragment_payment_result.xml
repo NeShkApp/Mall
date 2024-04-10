@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="Payment Accepted"
+            android:text="Your payment failed :(\nPlease retry"
             android:layout_below="@+id/imgMoney"
             android:textSize="26sp"
             android:layout_marginTop="10dp"

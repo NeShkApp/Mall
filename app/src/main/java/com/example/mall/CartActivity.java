@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.example.mall.activities.SettingsActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -49,6 +50,11 @@ public class CartActivity extends AppCompatActivity {
                         Intent homeIntent = new Intent(CartActivity.this, MainActivity.class);
                         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(homeIntent);
+                        break;
+                    case R.id.ic_settings:
+                        Intent settingsIntent = new Intent(CartActivity.this, SettingsActivity.class);
+                        settingsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(settingsIntent);
                         break;
                     default:
                         break;

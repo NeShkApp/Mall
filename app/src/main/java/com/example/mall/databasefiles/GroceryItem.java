@@ -98,7 +98,7 @@ public class GroceryItem implements Parcelable {
                 ", rate=" + rate +
                 ", userPoint=" + userPoint +
                 ", popularityPoint=" + popularityPoint +
-                ", reviews=" + reviews +
+//                ", reviews=" + reviews +
                 '}';
     }
 

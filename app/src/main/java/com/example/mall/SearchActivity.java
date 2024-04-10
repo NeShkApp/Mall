@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mall.activities.SettingsActivity;
 import com.example.mall.databasefiles.GroceryItem;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -46,6 +47,11 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
         adapter = new GroceryItemAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        ArrayList<GroceryItem> allItems = Utils.getAllItems(this);
+        if(null!= allItems){
+            adapter.setItems(allItems);
+        }
 
         Intent intent = getIntent();
         if(null!=intent){
@@ -202,7 +208,12 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
             ArrayList<GroceryItem> foundedItems = Utils.searchItemsByName(this, name);
             if(null!=foundedItems){
                 adapter.setItems(foundedItems);
-                increaseUserPoint(foundedItems);
+//                increaseUserPoint(foundedItems);
+            }
+        }else{
+            ArrayList<GroceryItem> allItems = Utils.getAllItems(this);
+            if(null!= allItems){
+                adapter.setItems(allItems);
             }
         }
     }
@@ -225,6 +236,11 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
                         Intent intent = new Intent(SearchActivity.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+                        break;
+                    case R.id.ic_settings:
+                        Intent settingsIntent = new Intent(SearchActivity.this, SettingsActivity.class);
+                        settingsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(settingsIntent);
                         break;
                     default:
                         break;

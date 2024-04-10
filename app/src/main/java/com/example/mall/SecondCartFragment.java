@@ -1,5 +1,7 @@
 package com.example.mall;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +29,16 @@ public class SecondCartFragment extends Fragment {
     private EditText edtAddress, edtPhone, edtEmail;
     private Button btnBack, btnNext;
     private TextView txtWarning;
+    private SharedPreferences preferences;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.second_cart_fragment, container, false);
         initViews(view);
+
+        preferences = getActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        fillEditTextsFromPreferences();
 
         Bundle bundle = getArguments();
         if (null != bundle) {
@@ -119,6 +125,12 @@ public class SecondCartFragment extends Fragment {
         price = Math.round(price * 100.0)/100.0;
 
         return price;
+    }
+
+    private void fillEditTextsFromPreferences() {
+        edtEmail.setText(preferences.getString("user_email", ""));
+        edtAddress.setText(preferences.getString("user_address", ""));
+        edtPhone.setText(preferences.getString("user_phone_number", ""));
     }
 
 }

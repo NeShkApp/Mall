@@ -10,12 +10,16 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.mall.Order;
+import com.example.mall.Utils;
+
 import java.util.ArrayList;
 
-@Database(entities = {GroceryItem.class, CartItem.class}, version = 1)
+@Database(entities = {GroceryItem.class, CartItem.class, Order.class}, version = 1)
 public abstract class ShopDatabase extends RoomDatabase {
     public abstract GroceryItemDao groceryItemDao();
     public abstract CartItemDao cartItemDao();
+    public abstract OrderItemDao orderItemDao();
 
     private static ShopDatabase instance;
 
@@ -43,7 +47,6 @@ public abstract class ShopDatabase extends RoomDatabase {
     private static class InitialAsyncTask extends AsyncTask<Void, Void, Void>{
 
         private GroceryItemDao groceryItemDao;
-
         public InitialAsyncTask(ShopDatabase db) {
             this.groceryItemDao = db.groceryItemDao();
         }

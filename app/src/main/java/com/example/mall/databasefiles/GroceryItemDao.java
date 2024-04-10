@@ -4,8 +4,6 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.mall.Review;
-
 import java.util.List;
 
 @Dao
@@ -38,6 +36,6 @@ public interface GroceryItemDao {
     void increasePopularityPoint(int id, int newPoints);
 
     @Query("update grocery_items set userPoint=:newPoints where id=:id")
-    void chanweUserPoint(int id, int newPoints);
+    void changeUserPoint(int id, int newPoints);
 
 }

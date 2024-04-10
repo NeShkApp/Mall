@@ -1,16 +1,26 @@
 package com.example.mall;
 
+import android.content.ContentResolver;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.ImageView;
 
+import com.example.mall.activities.OrderItemActivity;
 import com.example.mall.databasefiles.GroceryItem;
 import com.example.mall.databasefiles.ShopDatabase;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 public class Utils {
     private static final String TAG = "Utils";
@@ -31,9 +41,44 @@ public class Utils {
         ShopDatabase.getInstance(context).cartItemDao().insert(item.getId());
     }
 
+    public static void addOrder(Context context, Order order){
+        Log.d("AddOrder", "Adding order: ID - " + order.getId() + ", Address - " + order.getAddress() + ", Total Price - " + order.getTotalPrice());
+        ShopDatabase.getInstance(context).orderItemDao().insert(order);
+    }
+
+//    public static void addOrder(Context context, Order order){
+//        Log.d("AddOrder", "Adding order: ID - " + order.getId() + ", Address - " + order.getAddress() + ", Total Price - " + order.getTotalPrice());
+//
+//        ArrayList<GroceryItem> items = order.getItems();
+//
+//        for (GroceryItem item : items) {
+//            Log.d("AddOrder", "Item: Name - " + item.getName() + ", Quantity - " + item.getAvailableAmount() + ", Price - " + item.getPrice());
+//        }
+//
+//        ShopDatabase.getInstance(context).orderItemDao().insert(order);
+//    }
+
+
+
+
+
     public static ArrayList<GroceryItem> getAllCartItems(Context context){
         return (ArrayList<GroceryItem>) ShopDatabase.getInstance(context).cartItemDao().getAllCartItems();
     }
+
+    public static ArrayList<Order> getAllOrdersItems(Context context) {
+        List<Order> orders = ShopDatabase.getInstance(context).orderItemDao().getAllItems();
+        if (orders != null && !orders.isEmpty()) {
+//            for (Order order : orders) {
+//                Log.d("GetAllOrders", "Order ID: " + order.getId() + ", Address: " + order.getAddress() + ", Total Price: " + order.getTotalPrice() + "Date:" + order.getDate());
+//            }
+        } else {
+            Log.d("GetAllOrders", "No orders found");
+        }
+        return new ArrayList<>(orders);
+    }
+
+
 
     public static ArrayList<Review> getReviewsById (Context context, int itemId) {
         return ShopDatabase.getInstance(context).groceryItemDao().getItemById(itemId).getReviews();
@@ -77,14 +122,14 @@ public class Utils {
     }
 
     public static void increasePopularityPoint(Context context, GroceryItem item, int point){
-
         int newPoints = item.getPopularityPoint() + point;
         ShopDatabase.getInstance(context).groceryItemDao().increasePopularityPoint(item.getId(), newPoints);
     }
 
     public static void changeUserPoint(Context context, GroceryItem item, int points){
         int newPoints = item.getUserPoint() + points;
-        ShopDatabase.getInstance(context).groceryItemDao().chanweUserPoint(item.getId(), newPoints);
+        ShopDatabase.getInstance(context).groceryItemDao().changeUserPoint(item.getId(), newPoints);
+        Log.d(TAG, "changeUserPoint: Changed user point to: " + newPoints);
     }
 
 
@@ -107,5 +152,48 @@ public class Utils {
                 "      otherwise, or (ii) ownership of fifty percent (50%) or more of the\n" +
                 "      outstanding shares, or (iii) beneficial ownership of such entity.";
         return licences;
+    }
+
+    public static String getCurrentNumericDate() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-YYYY");
+        return sdf.format(calendar.getTime());
+    }
+
+    public static String getCurrentSymbolicDate() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+        return sdf.format(calendar.getTime());
+    }
+
+    public static String getCurrentTime() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        return sdf.format(calendar.getTime());
+    }
+
+    public static ArrayList<GroceryItem> getGroceryItemsById(OrderItemActivity context, int id) {
+        return ShopDatabase.getInstance(context).orderItemDao().getItemById(id).getItems();
+    }
+
+    //Photo saving
+    public static Uri getImageUriFromImageView(ImageView imageView) {
+        // Отримати URI обраного зображення з ImageView
+        Uri imageUri = null;
+        Drawable drawable = imageView.getDrawable();
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+            imageUri = getImageUriFromBitmap(bitmap, imageView.getContext().getContentResolver());
+        }
+        return imageUri;
+    }
+
+    public static Uri getImageUriFromBitmap(Bitmap bitmap, ContentResolver contentResolver) {
+        // Отримати URI зображення з Bitmap
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(contentResolver, bitmap, "Image", null);
+        return Uri.parse(path);
     }
 }

@@ -1,5 +1,25 @@
 <resources>
+
+    <string name="my_map_api_key">AIzaSyDabN4PmkoQYANCSe7SebIRebFk7DvqsuI</string>
     <string name="app_name">Mall</string>
     <string name="drawer_close">drawer_close</string>
     <string name="drawer_open">drawer_open</string>
+    <!--    <string name="user_name">User228</string>-->
+    <string name="non_fiscal_receipt">Non Fiscal Receipt</string>
+
+    <array name="gender_types">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Cyborg</item>
+        <item>Unicorn</item>
+        <item>Pizza</item>
+        <item>Ninja</item>
+        <item>Dragon</item>
+        <item>Alien</item>
+        <item>Zombie</item>
+        <item>Marshmallow</item>
+        <item>Potato</item>
+    </array>
+
+
 </resources>

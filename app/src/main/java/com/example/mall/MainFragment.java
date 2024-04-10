@@ -1,6 +1,9 @@
 package com.example.mall;
 
+import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -9,10 +12,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mall.activities.SettingsActivity;
 import com.example.mall.databasefiles.GroceryItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -33,7 +40,6 @@ public class MainFragment extends Fragment {
         initViews(view);
         initBottomNavBar();
 
-//        Utils.clearSharedPreferences(getActivity());
         return view;
     }
 
@@ -51,7 +57,7 @@ public class MainFragment extends Fragment {
         suggestedItemsRecView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
 
         ArrayList<GroceryItem> allItems = Utils.getAllItems(getActivity());
-        if(null != allItems) {
+        if (null != allItems) {
             Comparator<GroceryItem> allItemsComparator = new Comparator<GroceryItem>() {
                 @Override
                 public int compare(GroceryItem o1, GroceryItem o2) {
@@ -64,7 +70,7 @@ public class MainFragment extends Fragment {
         }
 
         ArrayList<GroceryItem> popularItems = Utils.getAllItems(getActivity());
-        if(null!=popularItems){
+        if (null != popularItems) {
             Comparator<GroceryItem> popularItemsComparator = new Comparator<GroceryItem>() {
                 @Override
                 public int compare(GroceryItem o1, GroceryItem o2) {
@@ -76,7 +82,7 @@ public class MainFragment extends Fragment {
         }
 
         ArrayList<GroceryItem> suggestedItems = Utils.getAllItems(getActivity());
-        if(null!=suggestedItems){
+        if (null != suggestedItems) {
             Comparator<GroceryItem> suggestedItemsComparator = new Comparator<GroceryItem>() {
                 @Override
                 public int compare(GroceryItem o1, GroceryItem o2) {
@@ -107,6 +113,11 @@ public class MainFragment extends Fragment {
                         break;
                     case R.id.ic_home:
                         break;
+                    case R.id.ic_settings:
+                        Intent settingsIntent = new Intent(getActivity(), SettingsActivity.class);
+                        settingsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(settingsIntent);
+                        break;
                     default:
                         break;
                 }
@@ -128,4 +139,5 @@ public class MainFragment extends Fragment {
         super.onResume();
         initRecViews();
     }
+
 }

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.UserProfileActivity"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/txtUploadPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload your photo"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="70dp"
+        android:layout_marginTop="20dp"
+        android:textSize="15sp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:elevation="10dp"
+            app:cardCornerRadius="25dp"
+            android:id="@+id/imgCard">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imgUserPhoto"
+                android:src="@drawable/ic_launcher_background"
+                android:scaleType="centerCrop" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your name"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edtUserName"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/imgCard"
+            android:layout_marginTop="10dp"
+            android:hint="Enter your username" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edtUserEmail"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:hint="Enter your email" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:id="@+id/edtUserAddress"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:hint="Enter your address" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone number"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:id="@+id/edtUserPhone"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:hint="Enter your phone number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gender"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <Spinner
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/gender_types"
+            android:id="@+id/spinner" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnUserSaveChanges"
+        android:layout_marginTop="-80dp"
+        android:text="Fill all the blanks"
+        android:visibility="gone"
+        android:textColor="#FF0000" />
+
+
+
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btnUserSaveChanges"
+        android:text="Save changes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"/>
+
+
+
+
+</RelativeLayout>
