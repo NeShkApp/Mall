@@ -1,4 +1,4 @@
-package com.example.mall;
+package com.example.mall.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mall.R;
 import com.example.mall.databasefiles.GroceryItem;
 
 import java.util.ArrayList;
@@ -55,6 +56,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.txtItemName.setText(cartItems.get(position).getName());
         holder.txtItemPrice.setText(cartItems.get(position).getPrice() + "$");
+
+        //new
+        if (cartItems.get(position).getSalePrice() != 0.0){
+            holder.txtItemCrossPrice.setVisibility(View.VISIBLE);
+            holder.txtItemSalePrice.setVisibility(View.VISIBLE);
+            holder.txtItemSalePrice.setText(cartItems.get(position).getSalePrice() + " $");
+        }
+        //new
         holder.txtDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +99,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private void calculateSumPrice(){
         double price = 0;
         for(GroceryItem item: cartItems){
-            price+=item.getPrice();
+            if(item.getSalePrice()==0.0) {
+                price += item.getPrice();
+            }else{
+                price += item.getSalePrice();
+            }
         }
         price = Math.round(price * 100.0)/100.0;
 
@@ -104,13 +117,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView txtItemName, txtItemPrice, txtDelete;
+        private TextView txtItemName, txtItemPrice, txtDelete, txtItemCrossPrice, txtItemSalePrice;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtItemName = itemView.findViewById(R.id.txtItemNameCart);
             txtItemPrice = itemView.findViewById(R.id.txtItemPrice);
             txtDelete = itemView.findViewById(R.id.txtDelete);
+            txtItemCrossPrice= itemView.findViewById(R.id.txtItemCrossPrice);
+            txtItemSalePrice = itemView.findViewById(R.id.txtItemSalePrice);
+
         }
     }
 }

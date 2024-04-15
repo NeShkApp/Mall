@@ -11,8 +11,10 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.example.mall.activities.OrderItemActivity;
+import com.example.mall.classes.Order;
 import com.example.mall.databasefiles.GroceryItem;
 import com.example.mall.databasefiles.ShopDatabase;
+import com.example.mall.databasefiles.ShopModel;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class Utils {
     private static final String TAG = "Utils";
@@ -78,9 +81,17 @@ public class Utils {
         return new ArrayList<>(orders);
     }
 
+    //shops
+    public static ArrayList<ShopModel> getAllShopItems(Context context){
+        return (ArrayList<ShopModel>) ShopDatabase.getInstance(context).shopItemDao().getAllItems();
+    }
+
+    public static ShopModel getShopById(Context context, int id) {
+        return ShopDatabase.getInstance(context).shopItemDao().getItemById(id);
+    }
 
 
-    public static ArrayList<Review> getReviewsById (Context context, int itemId) {
+    public static ArrayList<Review> getReviewsById(Context context, int itemId) {
         return ShopDatabase.getInstance(context).groceryItemDao().getItemById(itemId).getReviews();
     }
 
@@ -130,6 +141,12 @@ public class Utils {
         int newPoints = item.getUserPoint() + points;
         ShopDatabase.getInstance(context).groceryItemDao().changeUserPoint(item.getId(), newPoints);
         Log.d(TAG, "changeUserPoint: Changed user point to: " + newPoints);
+    }
+
+    //new
+    public static void changeSalePrice(Context context, int id, double newSalePrice){
+        ShopDatabase.getInstance(context).groceryItemDao().setSalePrice(id, newSalePrice);
+        Log.d(TAG, "changeSalePrice: Changed sale price to: " + newSalePrice);
     }
 
 
@@ -196,4 +213,40 @@ public class Utils {
         String path = MediaStore.Images.Media.insertImage(contentResolver, bitmap, "Image", null);
         return Uri.parse(path);
     }
+
+    public static void addSales(Context context){
+        Random random = new Random();
+        String text = "";
+        ArrayList<GroceryItem> allItems = Utils.getAllItems(context);
+        // Мінімум 50% продуктів отримують знижку
+        int numItemsToDiscount = (int) Math.ceil(allItems.size() * 0.5);
+        ArrayList<GroceryItem> itemsToDiscount = new ArrayList<>();
+
+        while (itemsToDiscount.size() < numItemsToDiscount) {
+            int randomIndex = random.nextInt(allItems.size());
+            GroceryItem item = allItems.get(randomIndex);
+            if (!itemsToDiscount.contains(item)) {
+                itemsToDiscount.add(item);
+            }
+        }
+
+        for (GroceryItem item : itemsToDiscount) {
+            double salePrice = Math.round((item.getPrice() - item.getPrice() * 0.2) * 100.0) / 100.0;
+            Utils.changeSalePrice(context, item.getId(), salePrice);
+        }
+        ArrayList<GroceryItem> newAllItems = Utils.getAllItems(context);
+        for (GroceryItem item : newAllItems) {
+            text += "Name: " + item.getName() + " ,Price: " + item.getPrice() + " ,Sale Price: " + item.getSalePrice() + "\n";
+        }
+        Log.d(TAG, "addSales: " + text);
+    }
+
+    public static void cancelSales(Context context){
+        ArrayList<GroceryItem> allItems = Utils.getAllItems(context);
+        for(GroceryItem item: allItems){
+            Utils.changeSalePrice(context, item.getId(), 0);
+        }
+        Log.d(TAG, "cancelSales: sales canceled");
+    }
+
 }

@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".App"
@@ -34,21 +35,21 @@
             android:name=".activities.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".WebsiteActivity"
+            android:name=".activities.WebsiteActivity"
             android:exported="false" />
         <activity
-            android:name=".CartActivity"
+            android:name=".activities.CartActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".activities.SearchActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
-            android:name=".GroceryItemActivity"
+            android:name=".activities.GroceryItemActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,7 +58,11 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".TrackUserTime" />
+        <service android:name=".services.TrackUserTime" />
+        <service
+            android:name=".services.NotificationJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

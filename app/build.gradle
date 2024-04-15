@@ -50,6 +50,10 @@ dependencies {
     //GOOGLE MAPS
     implementation 'com.google.android.gms:play-services-maps:18.2.0'
     implementation 'com.google.android.gms:play-services-location:21.2.0'
+    //noinspection GradleDynamicVersion
+    implementation 'com.google.maps.android:android-maps-utils:0.5+'
+    //workscheduler
+    implementation "androidx.work:work-runtime:2.7.0"
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

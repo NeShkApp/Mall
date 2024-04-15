@@ -1,4 +1,4 @@
-package com.example.mall;
+package com.example.mall.services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
+import com.example.mall.Utils;
 import com.example.mall.databasefiles.GroceryItem;
 
 public class TrackUserTime extends Service {
@@ -24,7 +25,7 @@ public class TrackUserTime extends Service {
     }
 
     public class LocalBinder extends Binder {
-        TrackUserTime getService(){
+        public TrackUserTime getService(){
             return TrackUserTime.this;
         }
     }

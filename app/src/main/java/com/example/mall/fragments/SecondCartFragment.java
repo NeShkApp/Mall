@@ -1,4 +1,4 @@
-package com.example.mall;
+package com.example.mall.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,7 +15,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.mall.R;
+import com.example.mall.Utils;
+import com.example.mall.classes.Order;
 import com.example.mall.databasefiles.GroceryItem;
+import com.example.mall.fragments.FirstCartFragment;
+import com.example.mall.fragments.ThirdCardFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -120,7 +125,11 @@ public class SecondCartFragment extends Fragment {
     private double calculateSumPrice(ArrayList<GroceryItem> items){
         double price = 0;
         for(GroceryItem item: items){
-            price+=item.getPrice();
+            if(item.getSalePrice()==0.0) {
+                price += item.getPrice();
+            }else{
+                price += item.getSalePrice();
+            }
         }
         price = Math.round(price * 100.0)/100.0;
 

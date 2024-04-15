@@ -23,6 +23,8 @@ public class GroceryItem implements Parcelable {
     private String imageUrl;
     private String category;
     private double price;
+    //new
+    private double salePrice;
     private int availableAmount;
     private int rate;
     private int userPoint;
@@ -30,7 +32,7 @@ public class GroceryItem implements Parcelable {
     @TypeConverters(ReviewsConverter.class)
     private ArrayList<Review> reviews;
 
-    public GroceryItem(String name, String description, String imageUrl, String category, double price, int availableAmount, int rate, int userPoint, int popularityPoint, ArrayList<Review> reviews) {
+    public GroceryItem(String name, String description, String imageUrl, String category, double price, int availableAmount, int rate, int userPoint, int popularityPoint, ArrayList<Review> reviews, double salePrice) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
@@ -41,6 +43,8 @@ public class GroceryItem implements Parcelable {
         this.userPoint = userPoint;
         this.popularityPoint = popularityPoint;
         this.reviews = reviews;
+        //new
+        this.salePrice = salePrice;
     }
 
     @Ignore
@@ -50,6 +54,7 @@ public class GroceryItem implements Parcelable {
         this.imageUrl = imageUrl;
         this.category = category;
         this.price = price;
+        this.salePrice = 0;
         this.availableAmount = availableAmount;
         this.rate = 0;
         this.userPoint =0;
@@ -69,6 +74,8 @@ public class GroceryItem implements Parcelable {
         rate = in.readInt();
         userPoint = in.readInt();
         popularityPoint = in.readInt();
+        //new
+        salePrice = in.readDouble();
     }
 
     @Ignore
@@ -98,7 +105,7 @@ public class GroceryItem implements Parcelable {
                 ", rate=" + rate +
                 ", userPoint=" + userPoint +
                 ", popularityPoint=" + popularityPoint +
-//                ", reviews=" + reviews +
+                ", reviews=" + reviews +
                 '}';
     }
 
@@ -109,6 +116,16 @@ public class GroceryItem implements Parcelable {
     public void setName(String name) {
         this.name = name;
     }
+    //new
+
+    public double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
+    }
+    //new
 
     public void setDescription(String description) {
         this.description = description;
@@ -209,5 +226,7 @@ public class GroceryItem implements Parcelable {
         parcel.writeInt(rate);
         parcel.writeInt(userPoint);
         parcel.writeInt(popularityPoint);
+        //new
+        parcel.writeDouble(salePrice);
     }
 }

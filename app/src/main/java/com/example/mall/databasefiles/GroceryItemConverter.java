@@ -1,4 +1,4 @@
-package com.example.mall;
+package com.example.mall.databasefiles;
 
 import androidx.room.TypeConverter;
 

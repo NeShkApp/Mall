@@ -4,7 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.mall.Order;
+import com.example.mall.classes.Order;
 
 import java.util.List;
 

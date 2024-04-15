@@ -1,6 +1,6 @@
-package com.example.mall;
+package com.example.mall.fragments;
 
-import static com.example.mall.SecondCartFragment.ORDER_KEY;
+import static com.example.mall.fragments.SecondCartFragment.ORDER_KEY;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.mall.R;
+import com.example.mall.Utils;
+import com.example.mall.activities.MainActivity;
+import com.example.mall.classes.Order;
 import com.example.mall.databasefiles.GroceryItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

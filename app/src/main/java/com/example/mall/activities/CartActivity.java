@@ -1,7 +1,4 @@
-package com.example.mall;
-
-import static com.example.mall.AllCategoriesDialog.ALL_CATEGORIES;
-import static com.example.mall.AllCategoriesDialog.CALLING_ACTIVITY;
+package com.example.mall.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,9 +7,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
-import com.example.mall.activities.SettingsActivity;
+import com.example.mall.fragments.FirstCartFragment;
+import com.example.mall.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

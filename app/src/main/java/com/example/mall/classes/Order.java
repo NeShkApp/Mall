@@ -1,15 +1,15 @@
-package com.example.mall;
+package com.example.mall.classes;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import com.example.mall.databasefiles.GroceryItemConverter;
 import com.example.mall.databasefiles.GroceryItem;
 
 import java.util.ArrayList;
@@ -44,21 +44,6 @@ public class Order implements Parcelable {
         this.date = date;
         this.time = time;
     }
-
-//    @Ignore
-//    public Order(ArrayList<GroceryItem> items, String address, String zipCode, String phoneNumber, String email, double totalPrice, String paymentMethod, boolean success, String date) {
-////        this.id = Utils.getOrderId();
-//        this.items = new ArrayList<>();
-//        this.address = address;
-//        this.zipCode = zipCode;
-//        this.phoneNumber = phoneNumber;
-//        this.email = email;
-//        this.totalPrice = totalPrice;
-//        this.paymentMethod = paymentMethod;
-//        this.success = success;
-//        //new added
-//        this.date = date;
-//    }
 
     @Ignore
     public Order() {

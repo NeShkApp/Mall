@@ -1,9 +1,8 @@
-package com.example.mall;
+package com.example.mall.fragments;
 
-import static com.example.mall.SecondCartFragment.ORDER_KEY;
+import static com.example.mall.fragments.SecondCartFragment.ORDER_KEY;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +15,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.mall.OrderEndPoint;
+import com.example.mall.R;
+import com.example.mall.Utils;
+import com.example.mall.classes.Order;
 import com.example.mall.databasefiles.GroceryItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

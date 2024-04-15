@@ -1,4 +1,4 @@
-package com.example.mall;
+package com.example.mall.dialogues;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.mall.R;
+import com.example.mall.Review;
+import com.example.mall.Utils;
 import com.example.mall.databasefiles.GroceryItem;
 
 import java.text.SimpleDateFormat;
@@ -84,9 +87,5 @@ public class AddReviewDialog extends DialogFragment {
         edtUsername = view.findViewById(R.id.edtYourName);
         edtUserReview = view.findViewById(R.id.edtYourReview);
         btnAddReview = view.findViewById(R.id.btnAddRev);
-    }
-
-    private void fillEditTextsFromPreferences() {
-        edtUsername.setText(preferences.getString("user_name", ""));
     }
 }

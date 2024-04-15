@@ -1,6 +1,4 @@
-package com.example.mall;
-
-import static com.example.mall.AddReviewDialog.GROCERY_ITEM_KEY;
+package com.example.mall.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,13 +17,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.mall.R;
+import com.example.mall.Review;
+import com.example.mall.Utils;
+import com.example.mall.adapters.ReviewsAdapter;
 import com.example.mall.databasefiles.GroceryItem;
+import com.example.mall.dialogues.AddReviewDialog;
+import com.example.mall.services.TrackUserTime;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
 
 public class GroceryItemActivity extends AppCompatActivity implements AddReviewDialog.AddReview{
     private static final String TAG = "GroceryItemActivity";
+    static final String GROCERY_ITEM_KEY = "incoming_item";
 
     private boolean isBound;
     private TrackUserTime mService;
@@ -47,7 +52,9 @@ public class GroceryItemActivity extends AppCompatActivity implements AddReviewD
     public static final String GROCERY_INCOMING_KEY = "incoming_key";
     private MaterialToolbar toolbar;
 
-    private TextView txtName, txtPrice, txtDesc, txtAddReview;
+    private TextView txtName, txtPrice, txtDesc, txtAddReview,
+            //new
+            txtGrocerySalePrice, txtGroceryCrossPrice;
     private RecyclerView recViewReviews;
     private Button btnAddToCart;
     private ImageView imgItem, firstEmptyStar, secondEmptyStar, thirdEmptyStar,
@@ -72,6 +79,13 @@ public class GroceryItemActivity extends AppCompatActivity implements AddReviewD
                 txtName.setText(incomingItem.getName());
                 txtDesc.setText(incomingItem.getDescription());
                 txtPrice.setText(String.valueOf(incomingItem.getPrice())+"$");
+                //new
+                if (incomingItem.getSalePrice() != 0.0){
+                    txtGroceryCrossPrice.setVisibility(View.VISIBLE);
+                    txtGrocerySalePrice.setVisibility(View.VISIBLE);
+                    txtGrocerySalePrice.setText(incomingItem.getSalePrice() + " $");
+                }
+                //new
                 Glide.with(this)
                         .asBitmap()
                         .load(incomingItem.getImageUrl())
@@ -208,6 +222,9 @@ public class GroceryItemActivity extends AppCompatActivity implements AddReviewD
         secondStarRelLay = findViewById(R.id.secondStarRelLay);
         thirdStarRelLay = findViewById(R.id.thirdStarRelLay);
         toolbar = findViewById(R.id.toolbar);
+        //new
+        txtGroceryCrossPrice = findViewById(R.id.txtGroceryCrossPrice);
+        txtGrocerySalePrice = findViewById(R.id.txtGrocerySalePrice);
     }
 
     @Override

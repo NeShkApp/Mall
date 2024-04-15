@@ -15,13 +15,19 @@
         android:textStyle="bold"
         android:textSize="18sp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <Button
         android:layout_below="@+id/txtHiUser"
-        android:layout_marginTop="20dp"
-        android:id="@+id/recViewSettings"
-        />
+        android:id="@+id/btnSetSales"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="set Sales"/>
+
+    <Button
+        android:layout_below="@+id/btnSetSales"
+        android:id="@+id/btnUnsetSales"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unset Sales"/>
 
 
 </RelativeLayout>

@@ -1,9 +1,6 @@
-package com.example.mall;
+package com.example.mall.fragments;
 
-import android.Manifest;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -12,14 +9,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mall.R;
+import com.example.mall.activities.SearchActivity;
+import com.example.mall.Utils;
+import com.example.mall.activities.CartActivity;
 import com.example.mall.activities.SettingsActivity;
+import com.example.mall.adapters.GroceryItemAdapter;
 import com.example.mall.databasefiles.GroceryItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

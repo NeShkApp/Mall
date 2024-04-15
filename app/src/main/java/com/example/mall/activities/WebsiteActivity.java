@@ -1,10 +1,12 @@
-package com.example.mall;
+package com.example.mall.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.example.mall.R;
 
 public class WebsiteActivity extends AppCompatActivity {
     private WebView webView;

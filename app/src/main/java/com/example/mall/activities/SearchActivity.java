@@ -1,7 +1,4 @@
-package com.example.mall;
-
-import static com.example.mall.AllCategoriesDialog.ALL_CATEGORIES;
-import static com.example.mall.AllCategoriesDialog.CALLING_ACTIVITY;
+package com.example.mall.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,8 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mall.activities.SettingsActivity;
+import com.example.mall.R;
+import com.example.mall.Utils;
+import com.example.mall.adapters.GroceryItemAdapter;
 import com.example.mall.databasefiles.GroceryItem;
+import com.example.mall.dialogues.AllCategoriesDialog;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -28,6 +28,8 @@ import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements AllCategoriesDialog.GetCategory {
     private static final String TAG = "SearchActivity";
+    static final String ALL_CATEGORIES = "categories";
+    static final String CALLING_ACTIVITY = "calling_activity";
     private MaterialToolbar toolbar;
     private EditText searchBox;
     private ImageView btnSearch;

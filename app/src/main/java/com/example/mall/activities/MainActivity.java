@@ -1,38 +1,30 @@
-package com.example.mall;
-
-import static com.example.mall.AllCategoriesDialog.ALL_CATEGORIES;
-import static com.example.mall.AllCategoriesDialog.CALLING_ACTIVITY;
+package com.example.mall.activities;
 import static com.example.mall.activities.UserProfileActivity.USER_PHOTO_URI_KEY;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.mall.activities.MapActivity;
-import com.example.mall.activities.OrdersActivity;
-import com.example.mall.activities.SettingsActivity;
-import com.example.mall.activities.UserProfileActivity;
+import com.example.mall.fragments.MainFragment;
+import com.example.mall.R;
+import com.example.mall.Utils;
+import com.example.mall.dialogues.AllCategoriesDialog;
+import com.example.mall.dialogues.LicencesDialog;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -44,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView userName;
     private ImageView userPhoto;
     private SharedPreferences preferences;
+    static final String ALL_CATEGORIES = "categories";
+    static final String CALLING_ACTIVITY = "calling_activity";
 
 
     @Override
@@ -55,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         preferences = getSharedPreferences("user_data", MODE_PRIVATE);
         String userNameValue = preferences.getString("user_name", "");
         if (userNameValue.isEmpty()) {
-            userName.setText("NewUser");
+            userName.setText("New User");
         } else {
             userName.setText(userNameValue);
         }

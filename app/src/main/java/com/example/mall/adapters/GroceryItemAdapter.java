@@ -1,4 +1,4 @@
-package com.example.mall;
+package com.example.mall.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.mall.activities.GroceryItemActivity;
+import com.example.mall.R;
 import com.example.mall.databasefiles.GroceryItem;
 import com.google.android.material.card.MaterialCardView;
 
@@ -38,6 +40,16 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.txtName.setText(items.get(position).getName());
         holder.txtPrice.setText(String.valueOf(items.get(position).getPrice()) + "$");
+        //new
+        if (items.get(position).getSalePrice() != 0.0){
+            holder.txtCrossPrice.setVisibility(View.VISIBLE);
+            holder.txtSalePrice.setVisibility(View.VISIBLE);
+            holder.txtSalePrice.setText(items.get(position).getSalePrice() + " $");
+        }else{
+            holder.txtCrossPrice.setVisibility(View.INVISIBLE);
+            holder.txtSalePrice.setVisibility(View.INVISIBLE);
+        }
+        //new
         Glide.with(context)
                 .asBitmap()
                 .load(items.get(position).getImageUrl())
@@ -64,7 +76,7 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView txtPrice, txtName;
+        private TextView txtPrice, txtName, txtCrossPrice, txtSalePrice;
         private ImageView img;
         private MaterialCardView parent;
 
@@ -73,6 +85,10 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
             this.txtPrice = itemView.findViewById(R.id.product_price);
             this.txtName = itemView.findViewById(R.id.product_name);
             this.img = itemView.findViewById(R.id.product_image);
+            //new
+            this.txtCrossPrice = itemView.findViewById(R.id.txtCrossPrice);
+            this.txtSalePrice = itemView.findViewById(R.id.txtSalePrice);
+            //new
             this.parent = itemView.findViewById(R.id.parent);
         }
     }

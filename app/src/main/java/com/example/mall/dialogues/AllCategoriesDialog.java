@@ -1,4 +1,4 @@
-package com.example.mall;
+package com.example.mall.dialogues;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,6 +13,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 
 import com.example.mall.R;
+import com.example.mall.activities.SearchActivity;
 
 import org.jetbrains.annotations.Nullable;
 

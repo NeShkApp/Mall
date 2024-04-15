@@ -1,20 +1,16 @@
 package com.example.mall.activities;
 
-import static com.example.mall.SecondCartFragment.ORDER_KEY;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mall.Order;
+import com.example.mall.classes.Order;
 import com.example.mall.R;
-import com.example.mall.Utils;
 import com.example.mall.databasefiles.GroceryItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -67,7 +63,11 @@ public class OrderItemActivity extends AppCompatActivity {
                     txtOrderItems.setText(itemsText);
                     itemsText = "";
                     for (GroceryItem i : items) {
-                        itemsText += "\n\n" + i.getPrice() + " $";
+                        if(i.getSalePrice()==0.0) {
+                            itemsText += "\n\n" + i.getPrice() + " $";
+                        }else{
+                            itemsText += "\n\n" + i.getSalePrice() + " $";
+                        }
                     }
                     txtOrderPrices.setText(itemsText);
                 }

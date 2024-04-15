@@ -16,7 +16,7 @@ public interface CartItemDao {
             " grocery_items.category, grocery_items.price," +
             " grocery_items.availableAmount, grocery_items.rate, " +
             "grocery_items.userPoint, grocery_items.popularityPoint, " +
-            "grocery_items.reviews from grocery_items " +
+            "grocery_items.reviews, grocery_items.salePrice from grocery_items " +
             "INNER JOIN cart_items on cart_items.grocery_item_id = grocery_items.id")
     List<GroceryItem> getAllCartItems();
 

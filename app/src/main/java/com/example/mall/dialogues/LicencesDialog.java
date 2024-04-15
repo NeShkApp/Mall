@@ -1,4 +1,4 @@
-package com.example.mall;
+package com.example.mall.dialogues;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.mall.R;
+import com.example.mall.Utils;
 
 public class LicencesDialog extends DialogFragment {
 

@@ -1,4 +1,4 @@
-package com.example.mall;
+package com.example.mall.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +15,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mall.R;
+import com.example.mall.Utils;
+import com.example.mall.adapters.CartAdapter;
 import com.example.mall.databasefiles.GroceryItem;
 
 import java.util.ArrayList;

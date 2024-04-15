@@ -8,11 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.mall.CartActivity;
-import com.example.mall.FirstCartFragment;
-import com.example.mall.MainActivity;
 import com.example.mall.R;
-import com.example.mall.SearchActivity;
 import com.example.mall.fragments.SettingsFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

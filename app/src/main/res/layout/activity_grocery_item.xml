@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GroceryItemActivity">
+    tools:context=".activities.GroceryItemActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
@@ -44,7 +44,6 @@
                     android:id="@+id/txtPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
@@ -52,7 +51,37 @@
                     android:text="15$"
                     android:textColor="@color/purple_200"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_toStartOf="@id/txtGrocerySalePrice"
+                    android:layout_alignWithParentIfMissing="true"
+                    />
+
+                <TextView
+                    android:id="@+id/txtGroceryCrossPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="_______"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_toStartOf="@id/txtGrocerySalePrice"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/txtGrocerySalePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="SALE"
+                    android:textSize="18sp"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold"
+                    android:textColor="#B61616"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 

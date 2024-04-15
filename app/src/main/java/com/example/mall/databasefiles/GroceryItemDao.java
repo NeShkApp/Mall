@@ -38,4 +38,10 @@ public interface GroceryItemDao {
     @Query("update grocery_items set userPoint=:newPoints where id=:id")
     void changeUserPoint(int id, int newPoints);
 
+    @Query("update grocery_items set price=:newPrice where id=:id")
+    void changeUpdatePrice(int id, double newPrice);
+
+    @Query("update grocery_items set salePrice=:newPrice where id=:id")
+    void setSalePrice(int id, double newPrice);
+
 }
