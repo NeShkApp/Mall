@@ -1,4 +1,4 @@
-package com.example.mall;
+package com.example.mall.databasefiles;
 
 public class Review {
     private int groceryItemId;

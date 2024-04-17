@@ -1,4 +1,4 @@
-package com.example.mall.adapters;
+package com.example.mall.databasefiles;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -20,18 +20,18 @@ import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 
-public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.ViewHolder>{
+public class GroceryBigItemAdapter extends RecyclerView.Adapter<GroceryBigItemAdapter.ViewHolder>{
 
     private ArrayList<GroceryItem> items = new ArrayList<>();
     private Context context;
-    public GroceryItemAdapter(Context context) {
+    public GroceryBigItemAdapter(Context context) {
         this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grocery_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grocery_item_big, parent, false);
         return new ViewHolder(view);
     }
 
@@ -81,12 +81,12 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.txtPrice = itemView.findViewById(R.id.product_price);
-            this.txtName = itemView.findViewById(R.id.product_name);
-            this.img = itemView.findViewById(R.id.product_image);
+            this.txtPrice = itemView.findViewById(R.id.bigProductPrice);
+            this.txtName = itemView.findViewById(R.id.txtBigProductName);
+            this.img = itemView.findViewById(R.id.bigProductImage);
             //new
-            this.txtCrossPrice = itemView.findViewById(R.id.txtCrossPrice);
-            this.txtSalePrice = itemView.findViewById(R.id.txtSalePrice);
+            this.txtCrossPrice = itemView.findViewById(R.id.bigProductCrossPrice);
+            this.txtSalePrice = itemView.findViewById(R.id.bigProductSalePrice);
             //new
             this.parent = itemView.findViewById(R.id.parent);
         }

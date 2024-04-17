@@ -15,12 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.mall.R;
-import com.example.mall.Review;
+import com.example.mall.databasefiles.Review;
 import com.example.mall.Utils;
 import com.example.mall.databasefiles.GroceryItem;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class AddReviewDialog extends DialogFragment {
 

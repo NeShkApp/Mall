@@ -55,8 +55,12 @@ public class ThirdCardFragment extends Fragment {
                 Order order = gson.fromJson(jsonOrder, type);
                 if(null!=order){
                     String items = "";
+                    int count = 0;
                     for(GroceryItem i: order.getItems()){
-                        items += i.getName() + "\n";
+                        items += i.getName();
+                        if (++count < order.getItems().size()) {
+                            items += "\n";
+                        }
                     }
 
                     txtItems.setText(items);

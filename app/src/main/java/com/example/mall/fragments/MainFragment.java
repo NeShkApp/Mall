@@ -25,6 +25,7 @@ import com.example.mall.activities.SettingsActivity;
 import com.example.mall.adapters.BannerAdapter;
 import com.example.mall.adapters.GroceryItemAdapter;
 import com.example.mall.databasefiles.Banner;
+import com.example.mall.databasefiles.GroceryBigItemAdapter;
 import com.example.mall.databasefiles.GroceryItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -47,7 +48,8 @@ public class MainFragment extends Fragment {
     //new
     private BottomNavigationView bottomNavigationView;
     private RecyclerView allItemsRecView, popularItemsRecView, suggestedItemsRecView;
-    private GroceryItemAdapter allItemsAdapter, popularItemsAdapter, suggestedItemsAdapter;
+//    private GroceryItemAdapter allItemsAdapter, popularItemsAdapter, suggestedItemsAdapter;
+    private GroceryBigItemAdapter allItemsAdapter, popularItemsAdapter, suggestedItemsAdapter;
 
     @Nullable
     @Override
@@ -87,15 +89,15 @@ public class MainFragment extends Fragment {
         });
         //new
 
-        allItemsAdapter = new GroceryItemAdapter(getActivity());
+        allItemsAdapter = new GroceryBigItemAdapter(getActivity());
         allItemsRecView.setAdapter(allItemsAdapter);
         allItemsRecView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
 
-        popularItemsAdapter = new GroceryItemAdapter(getActivity());
+        popularItemsAdapter = new GroceryBigItemAdapter(getActivity());
         popularItemsRecView.setAdapter(popularItemsAdapter);
         popularItemsRecView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
 
-        suggestedItemsAdapter = new GroceryItemAdapter(getActivity());
+        suggestedItemsAdapter = new GroceryBigItemAdapter(getActivity());
         suggestedItemsRecView.setAdapter(suggestedItemsAdapter);
         suggestedItemsRecView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
 

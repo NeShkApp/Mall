@@ -34,7 +34,8 @@
         android:layout_height="wrap_content"
         android:hint="Phone Number"
         android:layout_marginTop="20dp"
-        android:id="@+id/edtPhoneNumber"/>
+        android:id="@+id/edtPhoneNumber"
+        android:inputType="number"/>
 
     <TextView
         android:layout_width="wrap_content"

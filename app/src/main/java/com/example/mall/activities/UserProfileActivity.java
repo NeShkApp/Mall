@@ -62,11 +62,14 @@ public class UserProfileActivity extends AppCompatActivity {
         });
 
         btnSaveChanges.setOnClickListener(v -> {
-            saveUserDataToPreferences();
-            Intent intent = new Intent(UserProfileActivity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+            if (validateUserData()) {
+                saveUserDataToPreferences();
+                Intent intent = new Intent(UserProfileActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
         });
+
 
         // Перевірка, чи є зображення в SharedPreferences
         String savedImageUriString = preferences.getString(USER_PHOTO_URI_KEY, null);
@@ -76,6 +79,31 @@ public class UserProfileActivity extends AppCompatActivity {
             Glide.with(this).load(savedImageUri).into(imgUserPhoto);
         }
 
+    }
+
+    private boolean validateUserData() {
+        String userName = edtUserName.getText().toString();
+        String userEmail = edtUserEmail.getText().toString();
+        String userAddress = edtUserAddress.getText().toString();
+        String userPhone = edtUserPhone.getText().toString();
+
+        boolean isValid = true;
+
+        // Перевірка введених даних
+        if (!isValidEmail(userEmail)) {
+            edtUserEmail.setError("Please enter a valid email address");
+            isValid = false;
+        }
+        if (!isValidName(userName)) {
+            edtUserName.setError("Please enter a valid name (single word)");
+            isValid = false;
+        }
+        if (!isValidPhoneNumber(userPhone)) {
+            edtUserPhone.setError("Please enter a valid phone number (digits only)");
+            isValid = false;
+        }
+
+        return isValid;
     }
 
     private void initViews() {
@@ -107,11 +135,31 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void saveUserDataToPreferences() {
+        String userName = edtUserName.getText().toString();
+        String userEmail = edtUserEmail.getText().toString();
+        String userAddress = edtUserAddress.getText().toString();
+        String userPhone = edtUserPhone.getText().toString();
+
+        // Перевірка введених даних перед збереженням
+        if (!isValidEmail(userEmail)) {
+            edtUserEmail.setError("Please enter a valid email address");
+            return;
+        }
+        if (!isValidName(userName)) {
+            edtUserName.setError("Please enter a valid name (single word)");
+            return;
+        }
+        if (!isValidPhoneNumber(userPhone)) {
+            edtUserPhone.setError("Please enter a valid phone number (digits only)");
+            return;
+        }
+
+        // Збереження даних в SharedPreferences
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("user_name", edtUserName.getText().toString());
-        editor.putString("user_email", edtUserEmail.getText().toString());
-        editor.putString("user_address", edtUserAddress.getText().toString());
-        editor.putString("user_phone_number", edtUserPhone.getText().toString());
+        editor.putString("user_name", userName);
+        editor.putString("user_email", userEmail);
+        editor.putString("user_address", userAddress);
+        editor.putString("user_phone_number", userPhone);
         editor.putString("user_gender", spinner.getSelectedItem().toString());
         editor.apply();
 
@@ -124,4 +172,22 @@ public class UserProfileActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Data saved successfully", Toast.LENGTH_SHORT).show();
     }
+
+
+
+
+    private boolean isValidEmail(String email) {
+        return email.equals("") || android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private boolean isValidName(String name) {
+        return name.equals("") || !name.contains(" ");
+    }
+
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        return phoneNumber.equals("") || phoneNumber.matches("[0-9+]+");
+    }
+
+
+
 }

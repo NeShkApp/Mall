@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.mall.R;
-import com.example.mall.Review;
+import com.example.mall.databasefiles.Review;
 import com.example.mall.Utils;
 import com.example.mall.adapters.ReviewsAdapter;
 import com.example.mall.databasefiles.GroceryItem;

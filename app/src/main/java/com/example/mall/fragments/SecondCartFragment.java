@@ -107,10 +107,34 @@ public class SecondCartFragment extends Fragment {
     }
 
     private boolean validateData() {
-        if(edtAddress.getText().toString().equals("")||edtEmail.getText().toString().equals("")||edtPhone.getText().toString().equals("")){
+        String address = edtAddress.getText().toString();
+        String email = edtEmail.getText().toString();
+        String phone = edtPhone.getText().toString();
+
+        if (address.equals("") || email.equals("") || phone.equals("")) {
             return false;
         }
+
+        if (!isValidEmail(email)) {
+            edtEmail.setError("Please enter a valid email address");
+            return false;
+        }
+
+
+        if (!isValidPhoneNumber(phone)) {
+            edtPhone.setError("Please enter a valid phone number");
+            return false;
+        }
+
         return true;
+    }
+
+    private boolean isValidEmail(String email) {
+        return email.equals("") || android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        return phoneNumber.equals("") || phoneNumber.matches("[0-9+]+");
     }
 
     private void initViews(View view) {

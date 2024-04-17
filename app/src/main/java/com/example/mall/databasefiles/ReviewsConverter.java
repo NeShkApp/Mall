@@ -2,7 +2,6 @@ package com.example.mall.databasefiles;
 
 import androidx.room.TypeConverter;
 
-import com.example.mall.Review;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

@@ -7,27 +7,53 @@
     tools:context=".fragments.SettingsFragment"
     android:padding="10dp">
 
+
     <TextView
-        android:id="@+id/txtHiUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hi"
+        android:text="Pes Patron recommended"
+        android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:textSize="18sp"/>
 
-    <Button
+    <RelativeLayout
+        android:id="@+id/dbButtons"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/txtHiUser"
+        android:layout_centerHorizontal="true">
+
+    <Button
         android:id="@+id/btnSetSales"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="set Sales"/>
 
     <Button
-        android:layout_below="@+id/btnSetSales"
+        android:layout_marginStart="5dp"
         android:id="@+id/btnUnsetSales"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Unset Sales"/>
+        android:text="Unset Sales"
+        android:layout_toEndOf="@+id/btnSetSales"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dbButtons"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/btnCheckNotPer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check Notifications Permission"/>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>
