@@ -12,6 +12,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.mall.R;
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private int numOfStores = 20;
     private HashMap<Marker, Integer> markerShopIdMap = new HashMap<>();
+    private BottomNavigationView bottomNavigationView;
 
 
 
@@ -53,6 +56,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        bottomNavigationView = findViewById(R.id.bottomNavBar);
+        initBottomNavBar();
 
         fusedLocationProviderCLient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
@@ -84,44 +89,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         myMap.getUiSettings().setZoomControlsEnabled(true);
         myMap.getUiSettings().setCompassEnabled(true);
 
-        LatLng myHnidava = new LatLng(50.726725, 25.302582);
-//        LatLng latLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions()
-                .position(myHnidava)
-                .title("My location")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
-
-        myMap.addMarker(markerOptions);
-        myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myHnidava, 16.5f));
-
-//        markShopsOnTheMap();
         markShopsFromDb();
 
-        //get the street name
+        //change if you want to get your position
+//        LatLng myLatLng = new LatLng(50.726725, 25.302582);
+        LatLng myLatLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
         try {
             Geocoder geocoder = new Geocoder(MapActivity.this, Locale.getDefault());
-            List<Address> myAddress = geocoder.getFromLocation(myHnidava.latitude, myHnidava.longitude, 1);
-//            String address = myAddress.get(0).getAddressLine(0);
+            List<Address> myAddress = geocoder.getFromLocation(myLatLng.latitude, myLatLng.longitude, 1);
+            String address = myAddress.get(0).getAddressLine(0);
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .position(myLatLng)
+                    .title(address)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+
+            myMap.addMarker(markerOptions);
+            myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 16.5f));
         }catch (Exception e){
             e.printStackTrace();
         }
 
         myMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
-//            public boolean onMarkerClick(Marker marker) {
-//                ShopInfoDialog dialog = new ShopInfoDialog();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("street_name", marker.getTitle());
-//                bundle.putString("mon_fri_time", shop.getMonFriTime());
-//
-//                dialog.setArguments(bundle);
-//                dialog.show(getSupportFragmentManager(), "shop dialog");
-//
-//                LatLng markerPosition = marker.getPosition();
-//                Log.d(TAG, "Marker position: " + markerPosition.latitude + ", " + markerPosition.longitude);
-//                return false;
-//            }
-
             public boolean onMarkerClick(Marker marker) {
                 Integer shopId = markerShopIdMap.get(marker);
                 if (shopId != null) {
@@ -163,28 +152,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             markerShopIdMap.put(marker, s.getId());
         }
     }
-
-//    private void markShopsOnTheMap() {
-//        LatLng[] storeLocations = new LatLng[numOfStores];
-//
-//        // Генеруємо випадкові координати для магазинів у межах міста Луцька
-//        for (int i = 0; i < numOfStores; i++) {
-//            double lat = 50.718 + (Math.random() * 0.015); // Випадкова широта в межах 50.72 і 50.73
-//            double lng = 25.29 + (Math.random() * 0.03); // Випадкова довгота в межах 25.29 і 25.32
-//            storeLocations[i] = new LatLng(lat, lng);
-//        }
-//
-//
-//        // Створюємо маркери для магазинів та додаємо їх на карту
-//        for (int i = 0; i < numOfStores; i++) {
-//            String address = getAddressFromCoordinates(storeLocations[i]);
-//            MarkerOptions markerOptions = new MarkerOptions()
-//                    .position(storeLocations[i])
-//                    .title(address)
-//                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
-//            myMap.addMarker(markerOptions);
-//        }
-//    }
 
     private String getAddressFromCoordinates(LatLng latLng) {
         String address = "";
@@ -229,5 +196,39 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    private void initBottomNavBar() {
+        bottomNavigationView.setSelectedItemId(R.id.ic_map);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_cart:
+                        Intent cartIntent = new Intent(MapActivity.this, CartActivity.class);
+                        cartIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(cartIntent);
+                        break;
+                    case R.id.ic_search:
+                        Intent searchIntent = new Intent(MapActivity.this, SearchActivity.class);
+                        searchIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(searchIntent);
+                        break;
+                    case R.id.ic_home:
+                        Intent intent = new Intent(MapActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        break;
+                    case R.id.ic_settings:
+                        Intent settingsIntent = new Intent(MapActivity.this, SettingsActivity.class);
+                        settingsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(settingsIntent);
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
     }
 }

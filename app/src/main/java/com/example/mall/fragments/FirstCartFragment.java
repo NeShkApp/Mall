@@ -1,5 +1,6 @@
 package com.example.mall.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mall.R;
 import com.example.mall.Utils;
+import com.example.mall.activities.MainActivity;
 import com.example.mall.adapters.CartAdapter;
 import com.example.mall.databasefiles.GroceryItem;
 
@@ -29,6 +31,7 @@ public class FirstCartFragment extends Fragment implements CartAdapter.DeleteIte
     private Button btnNext;
     private RelativeLayout itemsRelLayout;
     private CartAdapter adapter;
+    private Button btnMakePurchases;
 
     @Nullable
     @Override
@@ -45,10 +48,12 @@ public class FirstCartFragment extends Fragment implements CartAdapter.DeleteIte
                 adapter.setCartItems(cartItems);
             }else{
                 txtNoItems.setVisibility(View.VISIBLE);
+                btnMakePurchases.setVisibility(View.VISIBLE);
                 itemsRelLayout.setVisibility(View.GONE);
             }
         }else{
             txtNoItems.setVisibility(View.GONE);
+            btnMakePurchases.setVisibility(View.GONE);
             itemsRelLayout.setVisibility(View.VISIBLE);
         }
 
@@ -58,6 +63,15 @@ public class FirstCartFragment extends Fragment implements CartAdapter.DeleteIte
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.cartContainer, new SecondCartFragment());
                 transaction.commit();
+            }
+        });
+
+        btnMakePurchases.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
 
@@ -71,6 +85,7 @@ public class FirstCartFragment extends Fragment implements CartAdapter.DeleteIte
         txtNoItems = view.findViewById (R.id.txtNoItemCart);
         btnNext = view.findViewById(R.id.btnNextCart);
         itemsRelLayout = view.findViewById (R.id.itemsRelLay);
+        btnMakePurchases = view.findViewById(R.id.btnMakePurchases);
     }
 
     @Override
@@ -82,10 +97,12 @@ public class FirstCartFragment extends Fragment implements CartAdapter.DeleteIte
                 adapter.setCartItems(cartItems);
             }else{
                 txtNoItems.setVisibility(View.VISIBLE);
+                btnMakePurchases.setVisibility(View.VISIBLE);
                 itemsRelLayout.setVisibility(View.GONE);
             }
         }else{
             txtNoItems.setVisibility(View.GONE);
+            btnMakePurchases.setVisibility(View.GONE);
             itemsRelLayout.setVisibility(View.VISIBLE);
         }
 

@@ -66,6 +66,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
+        style="@style/MyButtonStyle"
         />
 
 

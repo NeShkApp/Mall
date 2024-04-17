@@ -13,9 +13,10 @@
             android:id="@+id/txtYourCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Cart Items"
+            android:text="Your Cart"
             android:textStyle="bold"
-            android:textSize="16sp"/>
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recViewCart"
@@ -27,9 +28,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple_200"
+            android:textColor="@color/main_orange"
             android:layout_toStartOf="@id/txtCartSum"
             android:text="Sum: "
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:layout_below="@id/recViewCart"
             android:layout_marginTop="10dp"/>
 
@@ -37,9 +40,12 @@
             android:id="@+id/txtCartSum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple_200"
+            android:textColor="@color/main_orange"
             android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
             android:text="300 $"
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:layout_below="@id/recViewCart"
             android:layout_marginTop="10dp"/>
         
@@ -64,8 +70,20 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textStyle="italic"
+        android:textSize="18sp"
         android:text="Your cart is empty"
         android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btnMakePurchases"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make purchases"
+        android:layout_below="@+id/txtNoItemCart"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:visibility="gone"/>
 
 </RelativeLayout>

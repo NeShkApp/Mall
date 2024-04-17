@@ -10,18 +10,34 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#D2C4E4"
+        android:background="@color/priority_green"
         android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imgCartItem"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/logo_small"/>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/imgCartItem"
+            android:layout_marginStart="10dp">
 
         <TextView
             android:id="@+id/txtItemNameCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:text="Item Name"
-            android:layout_alignParentStart="true"
             android:textStyle="bold"/>
 
         <TextView
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtItemPrice"
@@ -38,13 +54,14 @@
             android:text="______"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:layout_marginTop="-5dp"
+            android:layout_marginTop="-3dp"
             android:layout_toStartOf="@id/txtItemSalePrice"
             android:layout_alignWithParentIfMissing="true"
             android:layout_marginEnd="20dp"
             android:visibility="gone"/>
 
         <TextView
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtItemSalePrice"
@@ -56,15 +73,17 @@
             android:visibility="gone"/>
 
         <TextView
+            android:padding="4dp"
             android:id="@+id/txtDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Delete"
             android:textSize="14sp"
             android:layout_alignParentEnd="true"
-            android:background="@color/purple_200"
+            android:background="#233523"
             android:textColor="@color/white"/>
 
+        </RelativeLayout>
 
 
 

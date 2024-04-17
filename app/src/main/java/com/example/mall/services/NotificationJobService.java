@@ -74,7 +74,7 @@ public class NotificationJobService extends JobService {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 2, intent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channel1")
                 .setContentTitle("Hello")
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.ic_bell)
                 .setContentText("This is my first notification")
                 .setPriority(NotificationManagerCompat.IMPORTANCE_HIGH)
                 .setColor(getResources().getColor(R.color.purple_200))

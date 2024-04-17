@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_200" />
+        android:background="@color/main_green" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -80,7 +80,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:text="See All Categories"
-            android:textColor="#7919C9" />
+            android:textColor="@color/main_orange" />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -98,6 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/bottom_nav_menu"
+        app:itemTextColor="@color/main_orange"/>
 
 </RelativeLayout>

@@ -1,8 +1,8 @@
 <resources>
 
-    <string name="shop_name">Super Shop</string>
+    <string name="shop_name">nAzars</string>
     <string name="my_map_api_key">AIzaSyDabN4PmkoQYANCSe7SebIRebFk7DvqsuI</string>
-    <string name="app_name">Mall</string>
+    <string name="app_name">nAzars</string>
     <string name="drawer_close">drawer_close</string>
     <string name="drawer_open">drawer_open</string>
     <!--    <string name="user_name">User228</string>-->

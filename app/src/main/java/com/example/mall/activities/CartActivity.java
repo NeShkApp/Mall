@@ -53,6 +53,11 @@ public class CartActivity extends AppCompatActivity {
                         settingsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(settingsIntent);
                         break;
+                    case R.id.ic_map:
+                        Intent mapIntent = new Intent(CartActivity.this, MapActivity.class);
+                        mapIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(mapIntent);
+                        break;
                     default:
                         break;
                 }

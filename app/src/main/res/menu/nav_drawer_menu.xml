@@ -4,41 +4,41 @@
     <item
         android:title="Cart"
         android:id="@+id/cart"
-        android:icon="@drawable/ic_action_cart"/>
+        android:icon="@drawable/ic_cart_green"/>
 
     <item
         android:title="Categories"
         android:id="@+id/categories"
-        android:icon="@drawable/ic_action_categories"/>
+        android:icon="@drawable/ic_category_green"/>
 
     <item
         android:title="About"
         android:id="@+id/about"
-        android:icon="@drawable/ic_action_info"/>
+        android:icon="@drawable/ic_info_green"/>
 
     <item
         android:title="Terms"
         android:id="@+id/terms"
-        android:icon="@drawable/ic_action_bank"/>
+        android:icon="@drawable/ic_bank_green"/>
 
     <item
         android:title="Licences"
         android:id="@+id/licences"
-        android:icon="@drawable/ic_action_licences"/>
+        android:icon="@drawable/ic_licences_green"/>
 
     <item
         android:title="Settings"
         android:id="@+id/settings"
-        android:icon="@drawable/ic_settings"/>
+        android:icon="@drawable/ic_settings_green"/>
 
     <item
         android:title="My Orders"
         android:id="@+id/orders"
-        android:icon="@drawable/ic_orders"/>
+        android:icon="@drawable/ic_orders_green"/>
 
     <item
         android:title="Map"
         android:id="@+id/map"
-        android:icon="@drawable/ic_map"/>
+        android:icon="@drawable/ic_map_green"/>
 
 </menu>

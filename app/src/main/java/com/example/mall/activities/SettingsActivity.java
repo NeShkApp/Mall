@@ -51,6 +51,11 @@ public class SettingsActivity extends AppCompatActivity {
                         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(homeIntent);
                         break;
+                    case R.id.ic_map:
+                        Intent mapIntent = new Intent(SettingsActivity.this, MapActivity.class);
+                        mapIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(mapIntent);
+                        break;
                     default:
                         break;
                 }

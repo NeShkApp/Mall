@@ -7,12 +7,14 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.mall.R;
 import com.example.mall.databasefiles.GroceryItem;
 
@@ -56,6 +58,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.txtItemName.setText(cartItems.get(position).getName());
         holder.txtItemPrice.setText(cartItems.get(position).getPrice() + "$");
+        Glide.with(context)
+                .asBitmap()
+                .load(cartItems.get(position).getImageUrl())
+                .into(holder.image);
 
         //new
         if (cartItems.get(position).getSalePrice() != 0.0){
@@ -118,6 +124,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView txtItemName, txtItemPrice, txtDelete, txtItemCrossPrice, txtItemSalePrice;
+        private ImageView image;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -126,6 +133,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             txtDelete = itemView.findViewById(R.id.txtDelete);
             txtItemCrossPrice= itemView.findViewById(R.id.txtItemCrossPrice);
             txtItemSalePrice = itemView.findViewById(R.id.txtItemSalePrice);
+            image = itemView.findViewById(R.id.imgCartItem);
 
         }
     }

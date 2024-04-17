@@ -146,9 +146,9 @@ public abstract class ShopDatabase extends RoomDatabase {
                 groceryItemDao.insert(g);
             }
 
-            //adding the shops into db
-
             ArrayList<ShopModel> shops = new ArrayList<>();
+
+            //lutsk
 
             ShopModel shop1 = new ShopModel(50.73048126207275, 25.30057816952877, "8:00 - 20:00", "8:00 - 16:00", "closed");
             shops.add(shop1);
@@ -174,6 +174,17 @@ public abstract class ShopDatabase extends RoomDatabase {
             shops.add(shop11);
             ShopModel shop12 = new ShopModel(50.738755, 25.323579, "20:00 - 18:00", "8:00 - 16:00", "closed");
             shops.add(shop12);
+
+            //czestochowa
+
+
+            ShopModel shop13 = new ShopModel(50.801769, 19.138557, "8:00 - 20:00", "8:00 - 16:00", "closed");
+            shops.add(shop13);
+
+            ShopModel shop14 = new ShopModel(50.806637, 19.144664, "8:00 - 20:00", "8:00 - 16:00", "closed");
+            shops.add(shop14);
+
+
 
             for(ShopModel s: shops){
                 shopModelDao.insert(s);
