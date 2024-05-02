@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -17,6 +18,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +42,7 @@ public class SettingsFragment extends Fragment {
     private static final String TAG = "SettingsFragment";
     private Button btnSet, btnUnset;
     private Button btnCheckNotPer;
+    private Switch switchNotification;
 
     @Nullable
     @Override
@@ -46,6 +51,7 @@ public class SettingsFragment extends Fragment {
         initViews(view);
 
         setStartText();
+        setStartSwitch();
         btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,9 +75,29 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        switchNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
+                startActivity(intent);
+            }
+        });
+
+
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        setStartSwitch();
+    }
+
+    private void setStartSwitch(){
+        NotificationManagerCompat manager = NotificationManagerCompat.from(getActivity());
+        switchNotification.setChecked(manager.areNotificationsEnabled());
+    }
 
     private void checkNotificationPermission(){
         NotificationManagerCompat manager = NotificationManagerCompat.from(getActivity());
@@ -99,6 +125,8 @@ public class SettingsFragment extends Fragment {
             Toast.makeText(getActivity(), "Notifications are enabled", Toast.LENGTH_LONG).show();
         }
     }
+
+
     private void setStartText() {
         String testText = "";
         ArrayList<GroceryItem> groceryItems = Utils.getAllItems(getActivity());
@@ -112,5 +140,6 @@ public class SettingsFragment extends Fragment {
         btnSet = view.findViewById(R.id.btnSetSales);
         btnUnset = view.findViewById(R.id.btnUnsetSales);
         btnCheckNotPer = view.findViewById(R.id.btnCheckNotPer);
+        switchNotification = view.findViewById(R.id.switchNotification);
     }
 }

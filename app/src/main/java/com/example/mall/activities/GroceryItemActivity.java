@@ -1,5 +1,6 @@
 package com.example.mall.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,10 @@ import com.example.mall.databasefiles.GroceryItem;
 import com.example.mall.dialogues.AddReviewDialog;
 import com.example.mall.services.TrackUserTime;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -90,14 +95,39 @@ public class GroceryItemActivity extends AppCompatActivity implements AddReviewD
                         .asBitmap()
                         .load(incomingItem.getImageUrl())
                         .into(imgItem);
-                ArrayList<Review> reviews = Utils.getReviewsById(this, incomingItem.getId());
+
+
+//                ArrayList<Review> reviews = Utils.getReviewsById(this, incomingItem.getId());
                 recViewReviews.setAdapter(adapter);
                 recViewReviews.setLayoutManager(new LinearLayoutManager(this));
-                if(null!=reviews){
-                    if(reviews.size()>0){
-                        adapter.setReviews(reviews);
-                    }
-                }
+                //new
+                FirebaseDatabase.getInstance().getReference("Reviews")
+                        .orderByChild("groceryItemId").equalTo(incomingItem.getId())
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                ArrayList<Review> reviews = new ArrayList<>();
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    Review review = snapshot.getValue(Review.class);
+                                    reviews.add(review);
+                                }
+                                adapter.setReviews(reviews);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                // Обробка помилок
+                            }
+                        });
+
+
+
+//                if(null!=reviews){
+//                    if(reviews.size()>0){
+//                        adapter.setReviews(reviews);
+//                    }
+//                }
+                //new
                 btnAddToCart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

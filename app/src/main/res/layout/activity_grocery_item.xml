@@ -80,7 +80,7 @@
                     android:textSize="18sp"
                     android:layout_margin="10dp"
                     android:textStyle="bold"
-                    android:textColor="#B61616"
+                    android:textColor="@color/main_orange"
                     android:visibility="gone"/>
 
             </RelativeLayout>

@@ -45,6 +45,10 @@ public class GroceryItem implements Parcelable {
     }
 
     @Ignore
+    public GroceryItem() {
+    }
+
+    @Ignore
     public GroceryItem(String name, String description, String imageUrl, String category, double price, int availableAmount) {
         this.name = name;
         this.description = description;

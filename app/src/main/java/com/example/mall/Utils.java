@@ -10,6 +10,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ImageView;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.mall.activities.OrderItemActivity;
 import com.example.mall.classes.Order;
 import com.example.mall.databasefiles.GroceryItem;
@@ -100,6 +102,11 @@ public class Utils {
         return (ArrayList<GroceryItem>) ShopDatabase.getInstance(context).groceryItemDao().getAllItems();
 
     }
+
+    public static LiveData<List<GroceryItem>> getAllGroceryItemsLiveData(Context context) {
+        return ShopDatabase.getInstance(context).groceryItemDao().getAllLiveGroceryItems();
+    }
+
 
     public static void addReview(Context context, Review review){
 

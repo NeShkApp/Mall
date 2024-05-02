@@ -27,6 +27,7 @@ public class ShopModel {
         this.id = id;
     }
 
+
     public ShopModel(double latitude, double longitude, String workingHoursFromMonToFri, String workingHoursSat, String workingHoursSun) {
         this.latitude = latitude;
         this.longitude = longitude;

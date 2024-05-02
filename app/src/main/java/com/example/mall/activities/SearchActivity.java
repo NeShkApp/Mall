@@ -14,11 +14,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mall.R;
 import com.example.mall.Utils;
 import com.example.mall.adapters.GroceryItemAdapter;
+import com.example.mall.databasefiles.GroceryBigItemAdapter;
 import com.example.mall.databasefiles.GroceryItem;
 import com.example.mall.dialogues.AllCategoriesDialog;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -32,11 +34,13 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
     static final String CALLING_ACTIVITY = "calling_activity";
     private MaterialToolbar toolbar;
     private EditText searchBox;
-    private ImageView btnSearch;
+    private ImageView btnSearch, imgAdapterChanger;
     private TextView txtFirstCategory, txtSecondCategory, txtThirdCategory, txtAllCategories;
     private RecyclerView recyclerView;
     private BottomNavigationView bottomNavigationView;
     private GroceryItemAdapter adapter;
+    private GroceryBigItemAdapter adapterBig;
+    private boolean isBigAdapterActive = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +50,23 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
         initBottomNavBar();
         setSupportActionBar(toolbar);
 
+        adapterBig = new GroceryBigItemAdapter(this);
         adapter = new GroceryItemAdapter(this);
+
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        imgAdapterChanger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setGroceryAdapter();
+            }
+        });
 
         ArrayList<GroceryItem> allItems = Utils.getAllItems(this);
         if(null!= allItems){
             adapter.setItems(allItems);
+            adapterBig.setItems(allItems);
         }
 
         Intent intent = getIntent();
@@ -62,6 +76,8 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
                 ArrayList<GroceryItem> items = Utils.getItemsByCategory(this, category);
                 if(null!=items){
                     adapter.setItems(items);
+                    adapterBig.setItems(items);
+
                     increaseUserPoint(items);
                 }
             }
@@ -116,6 +132,18 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
 
     }
 
+    private void setGroceryAdapter(){
+        if(!isBigAdapterActive){
+            recyclerView.setAdapter(adapterBig);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            isBigAdapterActive = true;
+        }else{
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+            isBigAdapterActive = false;
+        }
+    }
+
     private void showCategories(final ArrayList<String> categories, int i) {
         switch(i){
             case 1:
@@ -129,6 +157,7 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
                         ArrayList<GroceryItem> items = Utils.getItemsByCategory(SearchActivity.this, categories.get(0));
                         if(null!=items){
                             adapter.setItems(items);
+                            adapterBig.setItems(items);
                             increaseUserPoint(items);
                         }
                     }
@@ -146,6 +175,7 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
                         ArrayList<GroceryItem> items = Utils.getItemsByCategory(SearchActivity.this, categories.get(0));
                         if(null!=items){
                             adapter.setItems(items);
+                            adapterBig.setItems(items);
                             increaseUserPoint(items);
                         }
                     }
@@ -156,6 +186,7 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
                         ArrayList<GroceryItem> items = Utils.getItemsByCategory(SearchActivity.this, categories.get(1));
                         if(null!=items){
                             adapter.setItems(items);
+                            adapterBig.setItems(items);
                             increaseUserPoint(items);
                         }
                     }
@@ -174,6 +205,7 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
                         ArrayList<GroceryItem> items = Utils.getItemsByCategory(SearchActivity.this, categories.get(0));
                         if(null!=items){
                             adapter.setItems(items);
+                            adapterBig.setItems(items);
                             increaseUserPoint(items);
                         }
                     }
@@ -184,6 +216,7 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
                         ArrayList<GroceryItem> items = Utils.getItemsByCategory(SearchActivity.this, categories.get(1));
                         if(null!=items){
                             adapter.setItems(items);
+                            adapterBig.setItems(items);
                             increaseUserPoint(items);
                         }
                     }
@@ -194,6 +227,7 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
                         ArrayList<GroceryItem> items = Utils.getItemsByCategory(SearchActivity.this, categories.get(2));
                         if(null!=items){
                             adapter.setItems(items);
+                            adapterBig.setItems(items);
                             increaseUserPoint(items);
                         }
                     }
@@ -210,12 +244,14 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
             ArrayList<GroceryItem> foundedItems = Utils.searchItemsByName(this, name);
             if(null!=foundedItems){
                 adapter.setItems(foundedItems);
+                adapterBig.setItems(foundedItems);
 //                increaseUserPoint(foundedItems);
             }
         }else{
             ArrayList<GroceryItem> allItems = Utils.getAllItems(this);
             if(null!= allItems){
                 adapter.setItems(allItems);
+                adapterBig.setItems(allItems);
             }
         }
     }
@@ -266,6 +302,7 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
         txtAllCategories = findViewById(R.id.txtAllCategories);
         recyclerView = findViewById(R.id.recView);
         bottomNavigationView = findViewById(R.id.bottomNavBar);
+        imgAdapterChanger = findViewById(R.id.imgAdapterChanger);
     }
 
     @Override
@@ -274,6 +311,7 @@ public class SearchActivity extends AppCompatActivity implements AllCategoriesDi
         ArrayList<GroceryItem> items = Utils.getItemsByCategory(this, category);
         if(null!=items){
             adapter.setItems(items);
+            adapterBig.setItems(items);
         }
     }
 

@@ -29,6 +29,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public interface DeleteItem{
         void onDeleteResult(GroceryItem item);
     }
+
     private DeleteItem deleteItem;
     private TotalPrice totalPrice;
 

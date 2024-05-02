@@ -2,8 +2,8 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent"
-    android:layout_width="200dp"
-    android:layout_height="300dp"
+    android:layout_width="220dp"
+    android:layout_height="330dp"
     android:layout_margin="5dp"
     android:elevation="5dp"
     android:padding="10dp"
@@ -18,7 +18,7 @@
             android:id="@+id/bigImgRelLay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="20dp">
 
             <ImageView
                 android:id="@+id/bigProductImage"
@@ -81,10 +81,11 @@
                 android:id="@+id/bitProductSale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/bigProductSalePrice"
-                android:padding="10dp"
-                android:text="Sale"
-                android:textColor="#BD1010"
+                android:layout_below="@id/bigProductPrice"
+                android:layout_marginStart="10dp"
+                android:padding="5dp"
+                android:text="Sale!"
+                android:textColor="@color/main_orange"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
@@ -97,11 +98,10 @@
             android:id="@+id/txtBigProductName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/bigProductPrices"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:text="Product name"
             android:textSize="18sp"
             android:textStyle="bold" />

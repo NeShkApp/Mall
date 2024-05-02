@@ -6,6 +6,9 @@ public class Review {
     private String text;
     private String date;
 
+    public Review() {
+    }
+
     public Review(int groceryItemId, String userName, String text, String date) {
         this.groceryItemId = groceryItemId;
         this.userName = userName;

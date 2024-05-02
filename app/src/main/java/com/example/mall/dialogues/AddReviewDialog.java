@@ -5,10 +5,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,8 +20,13 @@ import com.example.mall.R;
 import com.example.mall.databasefiles.Review;
 import com.example.mall.Utils;
 import com.example.mall.databasefiles.GroceryItem;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AddReviewDialog extends DialogFragment {
+    private static final String TAG = "AddReviewDialog";
 
     public interface AddReview {
         void OnAddReviewResult(Review review);
@@ -39,11 +46,8 @@ public class AddReviewDialog extends DialogFragment {
         initViews(view);
         preferences = getActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
 
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                 .setView(view);
-
-//        fillEditTextsFromPreferences();
 
         Bundle bundle = getArguments();
         if (null != bundle) {
@@ -57,14 +61,36 @@ public class AddReviewDialog extends DialogFragment {
                         String userName = edtUsername.getText().toString();
                         String userReview = edtUserReview.getText().toString();
                         String date = Utils.getCurrentNumericDate();
+                        if (containsProfanity(userName) || containsProfanity(userReview)) {
+                            Toast.makeText(getActivity(), "Please, don't say bad words, honey \uD83D\uDE01", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         if (userName.equals("") || userReview.equals("")) {
                             txtWarning.setVisibility(View.VISIBLE);
                             txtWarning.setText("Fill all the blanks");
                         } else {
                             txtWarning.setVisibility(View.GONE);
                             try {
-                                addReview = (AddReview) getActivity();
-                                addReview.OnAddReviewResult(new Review(item.getId(), userName, userReview, date));
+                                //when we are getting reviews from firebase, we don't need the callback implementation
+//                                addReview = (AddReview) getActivity();
+//                                addReview.OnAddReviewResult(new Review(item.getId(), userName, userReview, date));
+
+                                Review review = new Review(item.getId(), userName, userReview, date);
+                                DatabaseReference reviewsRef = FirebaseDatabase.getInstance().getReference("Reviews");
+                                String reviewId = reviewsRef.push().getKey();
+                                reviewsRef.child(reviewId).setValue(review)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "Review added successfully to Firebase");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e(TAG, "Error adding review to Firebase", e);
+                                            }
+                                        });
                                 dismiss();
                             } catch (ClassCastException e) {
                                 e.printStackTrace();
@@ -85,4 +111,15 @@ public class AddReviewDialog extends DialogFragment {
         edtUserReview = view.findViewById(R.id.edtYourReview);
         btnAddReview = view.findViewById(R.id.btnAddRev);
     }
+    private boolean containsProfanity(String text) {
+        String[] profanityList = {"badword", "погане слово", "поганеслово", "блін"};
+
+        for (String profanity : profanityList) {
+            if (text.toLowerCase().contains(profanity)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

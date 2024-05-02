@@ -44,9 +44,11 @@ public class GroceryBigItemAdapter extends RecyclerView.Adapter<GroceryBigItemAd
             holder.txtCrossPrice.setVisibility(View.VISIBLE);
             holder.txtSalePrice.setVisibility(View.VISIBLE);
             holder.txtSalePrice.setText(items.get(position).getSalePrice() + " $");
+            holder.bitProductSale.setVisibility(View.VISIBLE);
         }else{
             holder.txtCrossPrice.setVisibility(View.INVISIBLE);
             holder.txtSalePrice.setVisibility(View.INVISIBLE);
+            holder.bitProductSale.setVisibility(View.INVISIBLE);
         }
         //new
         Glide.with(context)
@@ -75,7 +77,7 @@ public class GroceryBigItemAdapter extends RecyclerView.Adapter<GroceryBigItemAd
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView txtPrice, txtName, txtCrossPrice, txtSalePrice;
+        private TextView txtPrice, txtName, txtCrossPrice, txtSalePrice, bitProductSale;
         private ImageView img;
         private MaterialCardView parent;
 
@@ -87,6 +89,7 @@ public class GroceryBigItemAdapter extends RecyclerView.Adapter<GroceryBigItemAd
             //new
             this.txtCrossPrice = itemView.findViewById(R.id.bigProductCrossPrice);
             this.txtSalePrice = itemView.findViewById(R.id.bigProductSalePrice);
+            this.bitProductSale = itemView.findViewById(R.id.bitProductSale);
             //new
             this.parent = itemView.findViewById(R.id.parent);
         }

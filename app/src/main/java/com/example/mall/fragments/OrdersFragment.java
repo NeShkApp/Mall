@@ -29,15 +29,13 @@ public class OrdersFragment extends Fragment {
     private OrderAdapter adapter;
     private RecyclerView recyclerView;
     private TextView txtOrderUser;
-    private SharedPreferences preferences;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_orders_fragment, container, false);
         initViews(view);
-        preferences = getActivity().getSharedPreferences("user_data", MODE_PRIVATE);
-        txtOrderUser.setText(preferences.getString("user_name", "") + "'s orders");
+        txtOrderUser.setText("Your orders");
         adapter = new OrderAdapter(getActivity(), this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

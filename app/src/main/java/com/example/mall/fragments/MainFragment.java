@@ -2,6 +2,7 @@ package com.example.mall.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -23,10 +26,11 @@ import com.example.mall.activities.CartActivity;
 import com.example.mall.activities.SettingsActivity;
 //import com.example.mall.activities.StoresMapActivity;
 import com.example.mall.adapters.BannerAdapter;
-import com.example.mall.adapters.GroceryItemAdapter;
 import com.example.mall.databasefiles.Banner;
 import com.example.mall.databasefiles.GroceryBigItemAdapter;
 import com.example.mall.databasefiles.GroceryItem;
+import com.example.mall.databasefiles.Review;
+import com.example.mall.databasefiles.ShopDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,7 +43,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment{
+    private static final String TAG = "MainFragment";
     //new
     private ViewPager2 viewPager;
     private BannerAdapter bannerAdapter;
@@ -70,6 +75,7 @@ public class MainFragment extends Fragment {
 
 
         progressBar.setVisibility(View.VISIBLE);
+
         Query query = FirebaseDatabase.getInstance().getReference().child("Banner");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -87,7 +93,6 @@ public class MainFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
             }
         });
-        //new
 
         allItemsAdapter = new GroceryBigItemAdapter(getActivity());
         allItemsRecView.setAdapter(allItemsAdapter);
@@ -101,42 +106,57 @@ public class MainFragment extends Fragment {
         suggestedItemsRecView.setAdapter(suggestedItemsAdapter);
         suggestedItemsRecView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
 
-        ArrayList<GroceryItem> allItems = Utils.getAllItems(getActivity());
-        if (null != allItems) {
-            Comparator<GroceryItem> allItemsComparator = new Comparator<GroceryItem>() {
-                @Override
-                public int compare(GroceryItem o1, GroceryItem o2) {
-                    return o1.getId() - o2.getId();
+        LiveData<List<GroceryItem>> allGroceryItemsLiveData = Utils.getAllGroceryItemsLiveData(getActivity());
+        allGroceryItemsLiveData.observe(getViewLifecycleOwner(), new Observer<List<GroceryItem>>() {
+            @Override
+            public void onChanged(List<GroceryItem> groceryItems) {
+                if (groceryItems != null) {
+                    ArrayList<GroceryItem> allItems = new ArrayList<>(groceryItems);
+                    Comparator<GroceryItem> allItemsComparator = new Comparator<GroceryItem>() {
+                        @Override
+                        public int compare(GroceryItem o1, GroceryItem o2) {
+                            return o2.getId() - o1.getId();
+                        }
+                    };
+                    Collections.sort(allItems, allItemsComparator);
+                    allItemsAdapter.setItems(allItems);
                 }
-            };
-            Comparator<GroceryItem> reverseComparator = Collections.reverseOrder(allItemsComparator);
-            Collections.sort(allItems, reverseComparator);
-            allItemsAdapter.setItems(allItems);
-        }
+            }
+        });
+        allGroceryItemsLiveData.observe(getViewLifecycleOwner(), new Observer<List<GroceryItem>>() {
+            @Override
+            public void onChanged(List<GroceryItem> groceryItems) {
+                if (groceryItems != null) {
+                    ArrayList<GroceryItem> allItems = new ArrayList<>(groceryItems);
+                    Comparator<GroceryItem> popularItemsComparator = new Comparator<GroceryItem>() {
+                        @Override
+                        public int compare(GroceryItem o1, GroceryItem o2) {
+                            return o1.getPopularityPoint() - o2.getPopularityPoint();
+                        }
+                    };
+                    Collections.sort(allItems, Collections.reverseOrder(popularItemsComparator));
+                    popularItemsAdapter.setItems(allItems);
+                }
+            }
+        });
 
-        ArrayList<GroceryItem> popularItems = Utils.getAllItems(getActivity());
-        if (null != popularItems) {
-            Comparator<GroceryItem> popularItemsComparator = new Comparator<GroceryItem>() {
-                @Override
-                public int compare(GroceryItem o1, GroceryItem o2) {
-                    return o1.getPopularityPoint() - o2.getPopularityPoint();
+        allGroceryItemsLiveData.observe(getViewLifecycleOwner(), new Observer<List<GroceryItem>>() {
+            @Override
+            public void onChanged(List<GroceryItem> groceryItems) {
+                if (groceryItems != null) {
+                    ArrayList<GroceryItem> allItems = new ArrayList<>(groceryItems);
+                    Comparator<GroceryItem> suggestedItemsComparator = new Comparator<GroceryItem>() {
+                        @Override
+                        public int compare(GroceryItem o1, GroceryItem o2) {
+                            return o1.getUserPoint() - o2.getUserPoint();
+                        }
+                    };
+                    Collections.sort(allItems, Collections.reverseOrder(suggestedItemsComparator));
+                    suggestedItemsAdapter.setItems(allItems);
                 }
-            };
-            Collections.sort(popularItems, Collections.reverseOrder(popularItemsComparator));
-            popularItemsAdapter.setItems(popularItems);
-        }
+            }
+        });
 
-        ArrayList<GroceryItem> suggestedItems = Utils.getAllItems(getActivity());
-        if (null != suggestedItems) {
-            Comparator<GroceryItem> suggestedItemsComparator = new Comparator<GroceryItem>() {
-                @Override
-                public int compare(GroceryItem o1, GroceryItem o2) {
-                    return o1.getUserPoint() - o2.getUserPoint();
-                }
-            };
-            Collections.sort(suggestedItems, Collections.reverseOrder(suggestedItemsComparator));
-            suggestedItemsAdapter.setItems(suggestedItems);
-        }
     }
 
 
@@ -182,7 +202,6 @@ public class MainFragment extends Fragment {
         popularItemsRecView = view.findViewById(R.id.popularItemsRecyclerView);
         suggestedItemsRecView = view.findViewById(R.id.suggestedItemsRecyclerView);
 
-        //new
         viewPager = view.findViewById(R.id.viewPager);
         progressBar= view.findViewById(R.id.progressBar);
 

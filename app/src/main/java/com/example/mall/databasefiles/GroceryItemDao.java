@@ -1,7 +1,9 @@
 package com.example.mall.databasefiles;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -13,6 +15,12 @@ public interface GroceryItemDao {
 
     @Query("select * from grocery_items")
     List<GroceryItem> getAllItems();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(List<GroceryItem> items);
+
+    @Query("SELECT * FROM grocery_items")
+    LiveData<List<GroceryItem>> getAllLiveGroceryItems();
 
     @Query("update grocery_items set rate =:newRate where id=:id")
     void updateRate(int id, int newRate);
@@ -43,5 +51,6 @@ public interface GroceryItemDao {
 
     @Query("update grocery_items set salePrice=:newPrice where id=:id")
     void setSalePrice(int id, double newPrice);
+
 
 }
