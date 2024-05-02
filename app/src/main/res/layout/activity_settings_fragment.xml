@@ -37,6 +37,13 @@
         android:text="Unset Sales"
         android:layout_toEndOf="@+id/btnSetSales"/>
 
+        <Button
+            android:id="@+id/btnLogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log Out"
+            android:layout_toEndOf="@+id/btnUnsetSales"/>
+
     </RelativeLayout>
 
     <RelativeLayout

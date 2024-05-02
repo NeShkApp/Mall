@@ -18,6 +18,8 @@ import com.example.mall.databasefiles.GroceryItem;
 import com.example.mall.databasefiles.Review;
 import com.example.mall.databasefiles.ShopDatabase;
 import com.example.mall.databasefiles.ShopModel;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
@@ -141,7 +143,7 @@ public class Utils {
     }
 
     public static void increasePopularityPoint(Context context, GroceryItem item, int point){
-        int newPoints = item.getPopularityPoint() + point;
+        double newPoints = item.getPopularityPoint() + point;
         ShopDatabase.getInstance(context).groceryItemDao().increasePopularityPoint(item.getId(), newPoints);
     }
 

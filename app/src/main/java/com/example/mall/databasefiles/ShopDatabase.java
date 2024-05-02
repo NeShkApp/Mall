@@ -41,13 +41,18 @@ public abstract class ShopDatabase extends RoomDatabase{
     private static ShopDatabase instance;
 
     public static synchronized ShopDatabase getInstance(Context context){
-        if(null==instance){
-            instance = Room.databaseBuilder(context, ShopDatabase.class, "shop_db")
-                    .fallbackToDestructiveMigration()
-                    .allowMainThreadQueries()
-                    .addCallback(initialCallback)
-                    .build();
-        }
+//        if(null==instance){
+//            instance = Room.databaseBuilder(context, ShopDatabase.class, "shop_db")
+//                    .fallbackToDestructiveMigration()
+//                    .allowMainThreadQueries()
+//                    .addCallback(initialCallback)
+//                    .build();
+//        }
+        instance = Room.databaseBuilder(context, ShopDatabase.class, "shop_db")
+                .fallbackToDestructiveMigration()
+                .allowMainThreadQueries()
+                .addCallback(initialCallback)
+                .build();
         return instance;
     }
 

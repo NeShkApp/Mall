@@ -2,7 +2,6 @@ package com.example.mall.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,8 +28,6 @@ import com.example.mall.adapters.BannerAdapter;
 import com.example.mall.databasefiles.Banner;
 import com.example.mall.databasefiles.GroceryBigItemAdapter;
 import com.example.mall.databasefiles.GroceryItem;
-import com.example.mall.databasefiles.Review;
-import com.example.mall.databasefiles.ShopDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

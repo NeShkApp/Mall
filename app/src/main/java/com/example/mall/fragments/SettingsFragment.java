@@ -24,11 +24,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mall.activities.LoginActivity;
 import com.example.mall.classes.Order;
 import com.example.mall.R;
 import com.example.mall.Utils;
 import com.example.mall.adapters.OrderAdapter;
 import com.example.mall.databasefiles.GroceryItem;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 import org.w3c.dom.Text;
@@ -40,17 +42,18 @@ import okhttp3.internal.Util;
 
 public class SettingsFragment extends Fragment {
     private static final String TAG = "SettingsFragment";
-    private Button btnSet, btnUnset;
-    private Button btnCheckNotPer;
+    private Button btnSet, btnUnset, btnCheckNotPer, btnLogOut;
     private Switch switchNotification;
+    private FirebaseAuth mAuth;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_settings_fragment, container, false);
         initViews(view);
+        mAuth = FirebaseAuth.getInstance();
 
-        setStartText();
+//        setStartText();
         setStartSwitch();
         btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +87,15 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
@@ -141,5 +153,6 @@ public class SettingsFragment extends Fragment {
         btnUnset = view.findViewById(R.id.btnUnsetSales);
         btnCheckNotPer = view.findViewById(R.id.btnCheckNotPer);
         switchNotification = view.findViewById(R.id.switchNotification);
+        btnLogOut = view.findViewById(R.id.btnLogOut);
     }
 }

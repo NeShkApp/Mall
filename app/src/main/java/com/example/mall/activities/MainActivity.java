@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.mall.fragments.MainFragment;
@@ -25,8 +26,12 @@ import com.example.mall.R;
 import com.example.mall.Utils;
 import com.example.mall.dialogues.AllCategoriesDialog;
 import com.example.mall.dialogues.LicencesDialog;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,12 +44,42 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     static final String ALL_CATEGORIES = "categories";
     static final String CALLING_ACTIVITY = "calling_activity";
+    private FirebaseAuth mAuth;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+//        } else {
+//            currentUser.reload().addOnCompleteListener(new OnCompleteListener<Void>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Void> task) {
+//                    if (task.isSuccessful()) {
+//                        FirebaseUser updatedUser = mAuth.getCurrentUser();
+//                        if (updatedUser != null && !updatedUser.isEmailVerified()) {
+//                            Toast.makeText(getApplicationContext(), "Your account has been deleted. Please sign in again.", Toast.LENGTH_SHORT).show();
+//                            mAuth.signOut();
+//                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                            finish();
+//                        }
+//                    } else {
+//
+//                    }
+//                }
+//            });
+        }
+    }
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
 
         initViews();
         preferences = getSharedPreferences("user_data", MODE_PRIVATE);
@@ -54,13 +89,17 @@ public class MainActivity extends AppCompatActivity {
         } else {
             userName.setText(userNameValue);
         }
+        String userPhotoUrl = preferences.getString("user_photo", "");
+        if(!userPhotoUrl.isEmpty()){
+            Glide.with(this).load(userPhotoUrl).into(userPhoto);
+        }
 
-        //завантаженння фото якщо воно є у sharedPreferences
         String savedImageUriString = preferences.getString(USER_PHOTO_URI_KEY, null);
         if (savedImageUriString != null) {
             Uri savedImageUri = Uri.parse(savedImageUriString);
             Glide.with(this).load(savedImageUri).into(userPhoto);
         }
+
 
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);

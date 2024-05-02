@@ -20,6 +20,9 @@
         android:theme="@style/Theme.Mall"
         tools:targetApi="31">
         <activity
+            android:name=".activities.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.MapActivity"
             android:exported="false" />
         <activity
@@ -48,7 +51,6 @@
         <activity
             android:name=".activities.GroceryItemActivity"
             android:exported="false" />
-
         <activity
             android:name=".activities.MainActivity"
             android:exported="true">
@@ -58,7 +60,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <service android:name=".services.TrackUserTime" />
         <service

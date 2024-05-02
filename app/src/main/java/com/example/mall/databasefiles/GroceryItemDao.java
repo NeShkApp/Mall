@@ -41,7 +41,7 @@ public interface GroceryItemDao {
     List<GroceryItem> getItemsByCategory(String text);
 
     @Query("update grocery_items set popularityPoint =:newPoints where id=:id")
-    void increasePopularityPoint(int id, int newPoints);
+    void increasePopularityPoint(int id, double newPoints);
 
     @Query("update grocery_items set userPoint=:newPoints where id=:id")
     void changeUserPoint(int id, int newPoints);
